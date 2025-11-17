@@ -10,6 +10,11 @@ class Comments extends Model
     /** @use HasFactory<\Database\Factories\CommentsFactory> */
     use HasFactory;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function series(){
         return $this->belongsTo(Series::class);
     }
