@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-{{--    <title>{{$title}}</title>--}}
+    <title>{{$title}}</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -20,6 +20,10 @@
     </div>
 </header>
 <main>
+    <div class="mx-auto w-2/3">
+        <h1 class="text-3xl font-bold mb-4">{{$title}}</h1>
+    </div>
+
     {{$slot}}
 </main>
 <footer class="bg-teal-100 mt-10 h-20">
