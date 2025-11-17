@@ -18,6 +18,7 @@ class CommentsFactory extends Factory
     {
         return [
             'content' => $this->faker->text(),
+            'series_id' => $this->faker->numberBetween(1, 13),
         ];
     }
 }

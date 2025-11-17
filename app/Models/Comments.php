@@ -9,4 +9,8 @@ class Comments extends Model
 {
     /** @use HasFactory<\Database\Factories\CommentsFactory> */
     use HasFactory;
+
+    public function series(){
+        return $this->belongsTo(Series::class);
+    }
 }
