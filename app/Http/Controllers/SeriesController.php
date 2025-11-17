@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
 use App\Models\Series;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,13 @@ class SeriesController extends Controller
         return view('series.index', compact('series'));
     }
 
-    function show($series)
+    function show(int $id)
     {
-        return view('series.show', compact('series'));
+        $series = Series::find($id);
+        // get all the comments for a specific series that we loaded
+//        $comments = Comments::where('series_id', $series->id)->get();
+
+        return view('series.show', compact('series', ));
     }
 
     //

@@ -8,7 +8,7 @@ Route::get('/', [WelcomeController::class, "index"]);
 
 Route::get('series', [SeriesController::class, "index"])->name('series.index');
 
-Route::get('series/{series}', [SeriesController::class, "show"])->name('series.show');
+Route::get('series/{id}', [SeriesController::class, "show"])->name('series.show');
 
 Route::get('/dashboard', function () {
     return view('userzone.dashboard');

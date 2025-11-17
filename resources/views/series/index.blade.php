@@ -4,9 +4,9 @@
      <div class="mb-2 border-t border-orange-400">
 
      </div>
-        <h2 class="text-2xl font-bold">
+        <a href="series/{{$show->id}}" class="text-2xl font-bold">
          {{$show -> name}}
-     </h2>
+     </a>
     <p>      {{$show -> synopsis}}</p>
 
 
