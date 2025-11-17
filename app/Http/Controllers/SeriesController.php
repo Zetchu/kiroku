@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Series;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
@@ -10,9 +11,11 @@ class SeriesController extends Controller
     {
         // Loads data
 
+        $series = Series::all();
+
         // Returns a view with the data
 
-        return view('series.index');
+        return view('series.index', compact('series'));
     }
 
     function show($series)
