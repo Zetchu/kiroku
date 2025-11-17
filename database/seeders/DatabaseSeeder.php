@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comments;
 use App\Models\Series;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Series::factory(6) -> create();
+        Comments::factory(6) -> create();
     }
 }
