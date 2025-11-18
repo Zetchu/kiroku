@@ -35,6 +35,20 @@ Genre::create([
 return redirect()->route('genre.index');
     }
 
-    //
+    public function edit($id){
+
+        $genre = Genre::find($id);
+
+        return view("genre.edit", compact("genre"));
+
+    }
+
+    public function update(Request $request, $id){
+
+        $genre = Genre::find($id);
+        $genre->update(['name'=> $request -> name]);
+
+        return redirect()->route('genre.index');
+    }
 
 }

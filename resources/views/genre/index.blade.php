@@ -1,7 +1,10 @@
 <x-site-layout title="Genres">
 <ul>
 @foreach($genres as $genre)
-    <li>{{$genre -> name}}</li>
+    <li>
+       <a href="/genres/{{$genre->id}}">{{$genre -> name}} </a>
+        <a href="/genres/{{$genre->id}}/edit">EDIT </a>
+    </li>
 
 @endforeach
 </ul>
