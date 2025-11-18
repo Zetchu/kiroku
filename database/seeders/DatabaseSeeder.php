@@ -19,16 +19,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(5)->create();
 
-        Comments::factory(15) -> create();
-        User::factory(5) -> create();
-        Genre::create(['name'=>'Shonen']);
-        Genre::create(['name'=>'Sci-fi']);
-        Genre::create(['name'=>'Fantasy']);
-        $series = Series::factory(10) -> create();
+        $genres = Genre::insert([
+            ['name' => 'Shonen'],
+            ['name' => 'Sci-fi'],
+            ['name' => 'Fantasy'],
+            ['name' => 'Action'],
+            ['name' => 'Slice of Life'],
+            ['name' => 'Mystery'],
+        ]);
 
-        $series->each(function ($series){
-            $series->genres()->attach([1,2,3]);
+        Comments::factory(15)->create();
+
+        $genreIds = Genre::pluck('id')->all();
+        $series = Series::factory(14)->create();
+
+        $series->each(function (Series $series) use ($genreIds) {
+            // Randomly select 1 to 3 genre IDs from the array
+            $series->genres()->attach(
+                fake()->randomElements($genreIds, fake()->numberBetween(1, 3))
+            );
         });
+        
     }
 }
