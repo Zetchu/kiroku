@@ -28,5 +28,107 @@
         </div>
     </div>
 
-    
+    {{--         2. Trending Section --}}
+    <section class="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
+        <div class="flex items-end justify-between mb-8">
+            <h2 class="text-2xl font-bold text-white">Trending This Season</h2>
+            <a href="/series" class="text-sm text-gray-400 hover:text-accent transition">View all -></a>
+        </div>
+
+        Placeholder Data Loop
+        @php
+            $placeholders = [
+                ['title' => 'Neon Horizon', 'rating' => '8.7', 'img' => 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=800&q=80', 'tags' => 'Sci-Fi, Action'],
+                ['title' => 'Alchemist Promise', 'rating' => '9.1', 'img' => 'https://images.unsplash.com/photo-1607604276583-eef5f076aa6f?auto=format&fit=crop&w=800&q=80', 'tags' => 'Fantasy, Adv'],
+                ['title' => 'Sakura Tree', 'rating' => '8.5', 'img' => 'https://images.unsplash.com/photo-1528360983277-13d9b152c6d1?auto=format&fit=crop&w=800&q=80', 'tags' => 'Slice of Life'],
+                ['title' => 'Crimson Enigma', 'rating' => '9.3', 'img' => 'https://images.unsplash.com/photo-1630713815150-2c847025c1d9?auto=format&fit=crop&w=800&q=80', 'tags' => 'Mystery'],
+                ['title' => 'Laughing Legends', 'rating' => '8.0', 'img' => 'https://images.unsplash.com/photo-1578632748643-6303ac6f0176?auto=format&fit=crop&w=800&q=80', 'tags' => 'Comedy'],
+                ['title' => 'Feudal Honor', 'rating' => '8.9', 'img' => 'https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80', 'tags' => 'Historical'],
+            ];
+        @endphp
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            @foreach($placeholders as $series)
+                <div class="group relative rounded-xl overflow-hidden cursor-pointer bg-[#111] transition hover:-translate-y-2 duration-300">
+                    <div class="aspect-[2/3] w-full relative">
+                        <img src="{{ $series['img'] }}" alt="{{ $series['title'] }}"
+                             class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+
+                        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-2 py-1 rounded-md flex items-center gap-1">
+                            <svg class="w-3 h-3 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            {{ $series['rating'] }}
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-3">
+                        <h3 class="text-sm font-bold text-white leading-tight truncate">{{ $series['title'] }}</h3>
+                        <p class="text-xs text-gray-400 mt-1 truncate">{{ $series['tags'] }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    {{--         3. Features Section --}}
+    <section class="py-24 bg-[#050505]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Why Choose Kiroku?</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">We've built the tools you need to manage your anime addiction
+                    efficiently.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-accent/30 transition duration-300 group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Discover New Favorites</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Explore a vast library of anime. Our curated recommendations help you find exactly what you're
+                        looking for based on your tastes.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-accent/30 transition duration-300 group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Track Your Progress</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Effortlessly log episodes, mark as watched, and keep track of your viewing journey. Never forget
+                        where you left off.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-[#0F0F0F] border border-white/5 hover:border-accent/30 transition duration-300 group">
+                    <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Connect with Fans</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Join a vibrant community of anime enthusiasts. Share reviews, discuss theories, and discover new
+                        perspectives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 </x-site-layout>
