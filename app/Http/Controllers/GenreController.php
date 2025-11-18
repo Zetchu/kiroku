@@ -32,7 +32,7 @@ class GenreController extends Controller
 Genre::create([
     'name'=>request('name'),
 ]);
-return redirect()->route('genre.index');
+return redirect()->route('genres.index');
     }
 
     public function edit($id){
@@ -45,18 +45,18 @@ return redirect()->route('genre.index');
 
     public function update(Request $request, $id){
 
-        $genre = Genre::find($id);
-        $genre->update(['name'=> $request -> name]);
+        $genres = Genre::find($id);
+        $genres->update(['name'=> $request -> name]);
 
-        return redirect()->route('genre.index');
+        return redirect()->route('genres.index');
     }
 
     public function destroy($id){
 
-        $genre = Genre::find($id);
-        $genre->delete();
+        $genres = Genre::find($id);
+        $genres->delete();
 
-        return redirect()->route('genre.index');
+        return redirect()->route('genres.index');
     }
 
 }

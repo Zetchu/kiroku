@@ -11,6 +11,8 @@ Route::get('series', [SeriesController::class, "index"])->name('series.index');
 
 Route::get('series/{id}', [SeriesController::class, "show"])->name('series.show');
 
+Route::resource('genres', GenreController::class);
+/*
 Route::get('genres', [GenreController::class, "index"])->name('genre.index');
 Route::get('genres/{id}', [GenreController::class, "show"])->name('genre.show');
 Route::get('genres/create', [GenreController::class, "create"])->name('genre.create');
@@ -18,7 +20,7 @@ Route::get('genres/{id}/edit', [GenreController::class, "edit"])->name('genre.ed
 Route::post('genres', [GenreController::class, "store"])->name('genre.store');
 Route::put('genres/{id}', [GenreController::class, "update"])->name('genre.update');
 Route::delete('genres/{id}', [GenreController::class, "destroy"])->name('genre.destroy');
-
+*/
 Route::get('/dashboard', function () {
     return view('userzone.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
