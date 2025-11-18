@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,9 @@ Route::get('/', [WelcomeController::class, "index"]);
 Route::get('series', [SeriesController::class, "index"])->name('series.index');
 
 Route::get('series/{id}', [SeriesController::class, "show"])->name('series.show');
+
+Route::get('genres', [GenreController::class, "index"])->name('genre.index');
+Route::get('genres/{id}', [GenreController::class, "show"])->name('genre.show');
 
 Route::get('/dashboard', function () {
     return view('userzone.dashboard');
