@@ -51,4 +51,12 @@ return redirect()->route('genre.index');
         return redirect()->route('genre.index');
     }
 
+    public function destroy($id){
+
+        $genre = Genre::find($id);
+        $genre->delete();
+
+        return redirect()->route('genre.index');
+    }
+
 }
