@@ -62,7 +62,7 @@
     </div>
 </header>
 
-<main class="pt-20">
+<main>
     {{ $slot }}
 </main>
 
