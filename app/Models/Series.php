@@ -10,8 +10,14 @@ class Series extends Model
     /** @use HasFactory<\Database\Factories\SeriesFactory> */
     use HasFactory;
 
+
+
     public function comments()
     {
         return $this->hasMany(Comments::class);
+    }
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
     }
 }

@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('synopsis')->nullable();
-
-
+            $table->text("name");
             $table->timestamps();
         });
     }
 
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('genres');
+    }
 };

@@ -1,5 +1,10 @@
 
 <x-site-layout title="{{$series->name}}">
+
+
+    @foreach($series->genres as $genre)
+        <span class="bg-orange-400">{{$genre->name}} </span>
+    @endforeach
 {{$series -> synopsis}}
 
     <h2 class="font-bold my-3">  COMMENTS</h2>
