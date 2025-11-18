@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comments;
+use App\Models\Genre;
 use App\Models\Series;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,12 @@ class SeriesController extends Controller
     {
         // Loads data
 
-        $series = Series::all();
+        $series = Series::with('genres')->get();
+        $genres = Genre::all();
 
         // Returns a view with the data
 
-        return view('series.index', compact('series'));
+        return view('series.index', compact('series', 'genres'));
     }
 
     function show(int $id)
@@ -25,7 +27,7 @@ class SeriesController extends Controller
         // get all the comments for a specific series that we loaded
 //        $comments = Comments::where('series_id', $series->id)->get();
 
-        return view('series.show', compact('series', ));
+        return view('series.show', compact('series'));
     }
 
     //
