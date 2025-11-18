@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class GenreController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $genres = Genre::all();
 
         return view("genre.index", compact("genres"));
@@ -20,22 +21,25 @@ class GenreController extends Controller
         // get all the comments for a specific series that we loaded
 //        $comments = Comments::where('series_id', $series->id)->get();
 
-        return view('genre.show', compact('genre', ));
+        return view('genre.show', compact('genre'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('genre.create');
     }
 
 
-    public function store(Request $request){
-Genre::create([
-    'name'=>request('name'),
-]);
-return redirect()->route('genres.index');
+    public function store(Request $request)
+    {
+        Genre::create([
+            'name' => request('name'),
+        ]);
+        return redirect()->route('genres.index');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
         $genre = Genre::find($id);
 
@@ -43,20 +47,21 @@ return redirect()->route('genres.index');
 
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $genres = Genre::find($id);
-        $genres->update(['name'=> $request -> name]);
+        $genres->update(['name' => $request->name]);
 
         return redirect()->route('genres.index');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $genres = Genre::find($id);
         $genres->delete();
 
         return redirect()->route('genres.index');
     }
-
 }
