@@ -3,7 +3,7 @@
 
 
     @foreach($series->genres as $genre)
-        <span class="bg-orange-400">{{$genre->name}} </span>
+        <a href="/genres/{{$genre->id}}" class="bg-orange-400">{{$genre->name}} </a>
     @endforeach
 {{$series -> synopsis}}
 
