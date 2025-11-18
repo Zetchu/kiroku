@@ -13,7 +13,7 @@
 
         <nav class="flex gap-x-4">
             <a href="/series">Series</a>
-{{--            <a href="/genres">Genres</a>--}}
+            <a href="/genres">Genres</a>
         </nav>
 
 
