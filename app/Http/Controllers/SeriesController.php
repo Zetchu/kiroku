@@ -23,7 +23,7 @@ class SeriesController extends Controller
 
     function show(int $id)
     {
-        $series = Series::find($id);
+        $series = Series::with(['genres', 'comments.user'])->findOrFail($id);
         // get all the comments for a specific series that we loaded
 //        $comments = Comments::where('series_id', $series->id)->get();
 

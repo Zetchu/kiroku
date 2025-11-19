@@ -17,7 +17,7 @@ class GenreController extends Controller
 
     public function show(int $id)
     {
-        $genre = Genre::find($id);
+        $genre = Genre::with('series')->findOrFail($id);
         // get all the comments for a specific series that we loaded
 //        $comments = Comments::where('series_id', $series->id)->get();
 
