@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\WelcomeController;
@@ -12,6 +13,9 @@ Route::get('series', [SeriesController::class, "index"])->name('series.index');
 Route::get('series/{id}', [SeriesController::class, "show"])->name('series.show');
 
 Route::resource('genres', GenreController::class);
+Route::post('series/{id}/comments', [CommentsController::class, 'store'])
+    ->middleware('auth')
+    ->name('comments.store');
 /*
 Route::get('genres', [GenreController::class, "index"])->name('genre.index');
 Route::get('genres/{id}', [GenreController::class, "show"])->name('genre.show');
@@ -31,4 +35,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

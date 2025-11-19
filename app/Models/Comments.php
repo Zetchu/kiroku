@@ -10,12 +10,15 @@ class Comments extends Model
     /** @use HasFactory<\Database\Factories\CommentsFactory> */
     use HasFactory;
 
+    protected $fillable = ['content', 'user_id', 'series_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function series(){
+    public function series()
+    {
         return $this->belongsTo(Series::class);
     }
 }

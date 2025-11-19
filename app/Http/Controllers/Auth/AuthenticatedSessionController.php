@@ -16,6 +16,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        // Updated this to save the url from which we got to login, so when we log in we go back to that place
+        if (!session()->has('url.intended')) {
+            $previousUrl = url()->previous();
+            if ($previousUrl !== route('login') && $previousUrl !== route('register')) {
+                session(['url.intended' => $previousUrl]);
+            }
+        }
+
         return view('auth.login');
     }
 
