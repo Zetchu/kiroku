@@ -98,7 +98,7 @@
                                       d="M7 4v16M17 4v16M3 8h4M17 8h4M3 12h18M3 16h4M17 16h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
                             </svg>
                             Episodes: <span
-                                    class="text-white font-medium">24</span> {{-- Placeholder --}}
+                                    class="text-white font-medium">{{$series->episodes}}</span> {{-- Placeholder --}}
                         </li>
 
                         <li class="flex items-center gap-3">
@@ -107,7 +107,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.477 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.477-3-9s1.343-9 3-9m-9 9h18"/>
                             </svg>
-                            Studio: <span class="text-white font-medium">Nexus Animation</span> {{-- Placeholder --}}
+                            Studio: <span
+                                    class="text-white font-medium">{{$series->studio}}</span> {{-- Placeholder --}}
                         </li>
                     </ul>
                 </div>

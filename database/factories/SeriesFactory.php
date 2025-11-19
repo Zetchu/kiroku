@@ -22,6 +22,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BZjliODY5MzQtMmViZC00MTZmLWFhMWMtMjMwM2I3OGY1MTRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'MAPPA',
+            'episodes' => 89,
         ],
         [
             'name' => 'Death Note',
@@ -29,6 +31,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BYTgyZDhmMTEtZDFhNi00MTc4LTg3NjUtYWJlNGE5Mzk2NzMxXkEyXkFqcGc@._V1_.jpg',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'Madhouse',
+            'episodes' => 37,
         ],
         [
             'name' => 'Naruto',
@@ -36,6 +40,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'Studio Pierrot',
+            'episodes' => 220,
         ],
         [
             'name' => 'Fullmetal Alchemist: Brotherhood',
@@ -43,13 +49,17 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://upload.wikimedia.org/wikipedia/en/7/7e/Fullmetal_Alchemist_Brotherhood_key_visual.png',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'Bones',
+            'episodes' => 64,
         ],
         [
             'name' => 'One Piece',
             'synopsis' => 'Follows the adventures of Monkey D. Luffy and his pirate crew as they search for the ultimate treasure, the "One Piece", to become the next Pirate King.',
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
-            'type' => 'Manga', // Set some as Manga
+            'type' => 'Manga',
             'status' => 'Airing',
+            'studio' => 'Toei Animation',
+            'episodes' => 1100,
         ],
         [
             'name' => 'Jujutsu Kaisen',
@@ -57,6 +67,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://cdn.displate.com/artwork/270x380/2025-05-26/9a579dd43af2c32371589d6e6ea49db1_ac80afab18a1544defda992138b2c732.jpg',
             'type' => 'Anime',
             'status' => 'Airing',
+            'studio' => 'MAPPA',
+            'episodes' => 47,
         ],
         [
             'name' => 'Steins;Gate',
@@ -64,6 +76,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://static.wikia.nocookie.net/steins-gate/images/d/db/Classics_CompleteSeries_Blu-ray_%28edited%29.jpg/revision/latest?cb=20220225192906',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'White Fox',
+            'episodes' => 24,
         ],
         [
             'name' => 'Cowboy Bebop',
@@ -71,6 +85,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://upload.wikimedia.org/wikipedia/en/a/a9/Cowboy_Bebop_key_visual.jpg',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'Sunrise',
+            'episodes' => 26,
         ],
         [
             'name' => 'Demon Slayer: Kimetsu no Yaiba',
@@ -78,6 +94,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BMWU1OGEwNmQtNGM3MS00YTYyLThmYmMtN2FjYzQzNzNmNTE0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
             'type' => 'Anime',
             'status' => 'Airing',
+            'studio' => 'ufotable',
+            'episodes' => 55,
         ],
         [
             'name' => 'My Hero Academia',
@@ -85,6 +103,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BY2QzODA5OTQtYWJlNi00ZjIzLThhNTItMDMwODhlYzYzMjA2XkEyXkFqcGc@._V1_.jpg',
             'type' => 'Manga',
             'status' => 'Airing',
+            'studio' => 'Bones',
+            'episodes' => 138,
         ],
         [
             'name' => 'Berserk',
@@ -92,6 +112,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://theberserkmanga.com/wp-content/uploads/2025/08/download-3.webp',
             'type' => 'Manga',
             'status' => 'Airing',
+            'studio' => 'OLM',
+            'episodes' => 25,
         ],
         [
             'name' => 'Hunter x Hunter (2011)',
@@ -99,6 +121,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BYzYxOTlkYzctNGY2MC00MjNjLWIxOWMtY2QwYjcxZWIwMmEwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
             'type' => 'Anime',
             'status' => 'Finished',
+            'studio' => 'Madhouse',
+            'episodes' => 148,
         ],
         [
             'name' => 'Vinland Saga',
@@ -106,6 +130,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://m.media-amazon.com/images/I/71pI5sI9NjL._AC_UF1000,1000_QL80_.jpg',
             'type' => 'Manga',
             'status' => 'Airing',
+            'studio' => 'MAPPA',
+            'episodes' => 48,
         ],
         [
             'name' => 'Chainsaw Man',
@@ -113,6 +139,8 @@ class SeriesFactory extends Factory
             'imageUrl' => 'https://snworksceo.imgix.net/cds/5cfb9cca-68ee-42bc-aa29-760c168924e8.sized-1000x1000.jpg?w=1000&dpr=2',
             'type' => 'Anime',
             'status' => 'Airing',
+            'studio' => 'MAPPA',
+            'episodes' => 12,
         ],
     ];
 
@@ -127,6 +155,8 @@ class SeriesFactory extends Factory
             'type' => $series['type'],
             'status' => $series['status'],
             'imageUrl' => $series['imageUrl'],
+            'episodes' => $series['episodes'],
+            'studio' => $series['studio'],
 
         ];
     }

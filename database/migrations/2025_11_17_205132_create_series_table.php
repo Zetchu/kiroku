@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->enum('type', ['Anime', 'Manga']);
             $table->enum('status', ['Airing', 'Finished', 'Not yet aired']);
             $table->string('imageUrl');
+            $table->string('studio');
+            $table->integer('episodes');
 
             $table->timestamps();
         });
