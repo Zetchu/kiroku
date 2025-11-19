@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    {{--         2. Trending Section --}}
+    {{--2. Trending Section --}}
     <section class="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
         <div class="flex items-end justify-between mb-8">
             <h2 class="text-2xl font-bold text-white">Trending This Season</h2>
@@ -38,7 +38,9 @@
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             @foreach($trendingSeries as $series)
-                <div class="group relative rounded-xl overflow-hidden cursor-pointer bg-[#111] transition hover:-translate-y-2 duration-300">
+                <a href="/series/{{$series->id}}"
+                   class="group relative rounded-xl overflow-hidden cursor-pointer bg-[#111] transition hover:-translate-y-2 duration-300"
+                   data-type="{{ $series->type }}">
                     <div class="aspect-[2/3] w-full relative">
                         <img src="{{ $series->imageUrl }}" alt="{{ $series->name }}"
                              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
@@ -58,12 +60,12 @@
                         <h3 class="text-sm font-bold text-white leading-tight truncate">{{ $series->name }}</h3>
                         <p class="text-xs text-gray-400 mt-1 truncate">{{ $series->type }}</p>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
     </section>
 
-    {{--         3. Features Section --}}
+    {{-- 3. Features Section --}}
     <section class="py-24 bg-[#050505]">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
