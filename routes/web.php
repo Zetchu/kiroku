@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminGenreController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SeriesController;
@@ -17,8 +18,12 @@ Route::post('series/{id}/comments', [CommentsController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');
 
-Route::middleware(['auth', 'admin'])->get('/admin-test', function () {
-    return 'Welcome, Administrator! You have passed the middleware.';
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('index');
+
 });
 /*
 Route::get('genres', [GenreController::class, "index"])->name('genre.index');
