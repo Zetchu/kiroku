@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Kiroku') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,6 +14,23 @@
     <!-- Tailwind CSS & Alpine.js via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js"></script>
+    <style>
+        .text-accent {
+            color: #8A2BE2;
+        }
+
+        .bg-accent {
+            background-color: #8A2BE2;
+        }
+
+        .bg-accent-hover:hover {
+            background-color: #7a25c9;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100">

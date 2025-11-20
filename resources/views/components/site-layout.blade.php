@@ -46,7 +46,7 @@
         <div class="flex items-center gap-4">
             @if (Route::has('login'))
                 @auth
-                    
+
                     @if(Auth::user()->is_admin)
                         <a href="{{ route('admin.index') }}"
                            class="hidden md:inline-block text-xs font-bold text-purple-400 border border-purple-500/30 bg-purple-500/10 px-3 py-1.5 rounded-md hover:bg-purple-500/20 transition">
