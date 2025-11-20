@@ -46,11 +46,58 @@
         <div class="flex items-center gap-4">
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ url('/dashboard') }}"
-                       class="text-sm font-medium hover:text-accent transition">Dashboard</a>
+                    
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ route('admin.index') }}"
+                           class="hidden md:inline-block text-xs font-bold text-purple-400 border border-purple-500/30 bg-purple-500/10 px-3 py-1.5 rounded-md hover:bg-purple-500/20 transition">
+                            Admin Panel
+                        </a>
+                    @endif
+
+                    <div x-data="{ dropdownOpen: false }" class="relative">
+
+                        <button @click="dropdownOpen = !dropdownOpen"
+                                class="flex items-center gap-2 text-sm font-medium text-white hover:text-accent transition focus:outline-none">
+                            <span>{{ Auth::user()->name }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400"
+                                 :class="{'rotate-180': dropdownOpen}"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="dropdownOpen"
+                             @click.outside="dropdownOpen = false"
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-lg shadow-xl py-1 z-50"
+                             style="display: none;">
+
+                            <a href="{{ route('profile.edit') }}"
+                               class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white border-b border-white/5">
+                                Profile
+                            </a>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                        class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
+                                    Log Out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 @else
                     <a href="{{ route('login') }}"
-                       class="text-sm font-medium text-gray-300 hover:text-white transition">Login</a>
+                       class="text-sm font-medium text-gray-300 hover:text-white transition">
+                        Login
+                    </a>
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
                            class="bg-accent bg-accent-hover text-white px-5 py-2 rounded-md text-sm font-medium transition shadow-[0_0_15px_rgba(138,43,226,0.3)]">

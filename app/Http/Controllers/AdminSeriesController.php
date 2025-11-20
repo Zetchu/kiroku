@@ -43,6 +43,35 @@ class AdminSeriesController extends Controller
         return redirect()->route('admin.series.index')->with('success', 'Series created successfully.');
     }
 
+    public function edit(Series $series)
+    {
+        $genres = Genre::orderBy('name')->get();
+        $series->load('genres');
+
+        return view('admin.series.edit', compact('series', 'genres'));
+    }
+
+    public function update(Request $request, Series $series)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'synopsis' => 'nullable|string',
+            'type' => 'required|in:Anime,Manga',
+            'status' => 'required|in:Airing,Finished,Not yet aired,Cancelled',
+            'imageUrl' => 'required|url',
+            'studio' => 'nullable|string|max:255',
+            'episodes' => 'nullable|integer|min:0',
+            'genres' => 'array',
+            'genres.*' => 'exists:genres,id',
+        ]);
+
+        $series->update($request->except('genres'));
+
+        $series->genres()->sync($request->genres ?? []);
+
+        return redirect()->route('admin.series.index')->with('success', 'Series updated successfully.');
+    }
+
     public function destroy(Series $series)
     {
         $series->genres()->detach();
