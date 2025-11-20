@@ -24,6 +24,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         return view('admin.dashboard');
     })->name('index');
 
+    Route::resource('genres', AdminGenreController::class);
 });
 /*
 Route::get('genres', [GenreController::class, "index"])->name('genre.index');
