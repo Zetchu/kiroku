@@ -16,6 +16,10 @@ Route::resource('genres', GenreController::class);
 Route::post('series/{id}/comments', [CommentsController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');
+
+Route::middleware(['auth', 'admin'])->get('/admin-test', function () {
+    return 'Welcome, Administrator! You have passed the middleware.';
+});
 /*
 Route::get('genres', [GenreController::class, "index"])->name('genre.index');
 Route::get('genres/{id}', [GenreController::class, "show"])->name('genre.show');
