@@ -21,6 +21,13 @@
                         </dl>
                     </div>
                 </div>
+                <div class="bg-gray-50 px-5 py-3 mt-2">
+
+                    <a href="{{ route('admin.series.index') }}"
+                       class="block py-2.5 px-4 rounded hover:bg-gray-700 text-gray-400 hover:text-white transition duration-200">
+                        Manage Series
+                    </a>
+                </div>
             </div>
 
 
