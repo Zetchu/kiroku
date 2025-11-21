@@ -29,4 +29,9 @@ class Series extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
