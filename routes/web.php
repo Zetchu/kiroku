@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminGenreController;
 use App\Http\Controllers\AdminSeriesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -20,14 +21,15 @@ Route::post('series/{id}/comments', [CommentsController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');
 
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('index');
-
     Route::resource('genres', AdminGenreController::class);
     Route::resource('series', AdminSeriesController::class);
+
 });
 
 Route::get('/dashboard', function () {
@@ -38,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/series/{series}/review', [ReviewController::class, 'store'])->name('reviews.store');
+    
 });
 
 require __DIR__ . '/auth.php';
