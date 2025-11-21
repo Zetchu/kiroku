@@ -10,8 +10,8 @@
     </header>
 
     <x-breeze.danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
+            x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
     >{{ __('Delete Account') }}</x-breeze.danger-button>
 
     <x-breeze.modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
@@ -28,17 +28,17 @@
             </p>
 
             <div class="mt-6">
-                <x-breeze.input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <x-breeze.input-label for="password" value="{{ __('Password') }}" class="sr-only"/>
 
                 <x-breeze.text-input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="mt-1 block w-3/4"
+                        placeholder="{{ __('Password') }}"
                 />
 
-                <x-breeze.input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                <x-breeze.input-error :messages="$errors->userDeletion->get('password')" class="mt-2"/>
             </div>
 
             <div class="mt-6 flex justify-end">
@@ -48,7 +48,7 @@
 
                 <x-breeze.danger-button class="ms-3">
                     {{ __('Delete Account') }}
-                </x-breedanger-button>
+                </x-breeze.danger-button>
             </div>
         </form>
     </x-breeze.modal>
