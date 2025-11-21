@@ -31,4 +31,22 @@ class ReviewController extends Controller
 
         return back()->with('success', 'List updated successfully!');
     }
+
+
+    public function index()
+    {
+        $userId = Auth::id();
+
+        $reviews = Review::with('series')
+            ->where('user_id', $userId)
+            ->get();
+        
+        $stats = [
+            'total_series' => $reviews->count(),
+            'episodes_watched' => $reviews->sum('progress'),
+            'mean_score' => $reviews->avg('rating') ?? 0,
+        ];
+
+        return view('user.list', compact('reviews', 'stats'));
+    }
 }
