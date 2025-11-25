@@ -39,7 +39,6 @@
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
             <a href="/" class="hover:text-white transition">Home</a>
             <a href="/series" class="hover:text-white transition">Explore</a>
-            <a href="/genres" class="hover:text-white transition">Genres</a>
             @auth
                 <a href="{{ route('my-list') }}" class="hover:text-white transition">My List</a>
             @endauth
