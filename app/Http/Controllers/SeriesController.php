@@ -24,10 +24,12 @@ class SeriesController extends Controller
     function show(int $id)
     {
         $series = Series::with(['genres', 'comments.user'])->findOrFail($id);
-        // get all the comments for a specific series that we loaded
-//        $comments = Comments::where('series_id', $series->id)->get();
 
-        return view('series.show', compact('series'));
+        $userReview = auth()->check()
+            ? \App\Models\Review::where('user_id', auth()->id())->where('series_id', $id)->first()
+            : null;
+
+        return view('series.show', compact('series', 'userReview'));
     }
 
     //

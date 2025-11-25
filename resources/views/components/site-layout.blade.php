@@ -40,7 +40,9 @@
             <a href="/" class="hover:text-white transition">Home</a>
             <a href="/series" class="hover:text-white transition">Explore</a>
             <a href="/genres" class="hover:text-white transition">Genres</a>
-            <a href="/" class="hover:text-white transition">My List</a>
+            @auth
+                <a href="{{ route('my-list') }}" class="hover:text-white transition">My List</a>
+            @endauth
         </nav>
 
         <div class="flex items-center gap-4">
