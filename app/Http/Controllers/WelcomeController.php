@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class WelcomeController extends Controller
 {
@@ -11,7 +12,12 @@ class WelcomeController extends Controller
     {
         // Business logic goes here
 
-        $trendingSeries = Series::inRandomOrder()->take(6)->get();
+        $trendingSeries = Cache::remember('trending_series', 60 * 60, function () {
+            return Series::withAvg('reviews', 'rating')
+                ->orderByDesc('reviews_avg_rating')
+                ->take(6)
+                ->get();
+        });
         return view('welcome', compact('trendingSeries'));
     }
 }
