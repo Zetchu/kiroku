@@ -12,7 +12,7 @@ class WelcomeController extends Controller
     {
         // Business logic goes here
 
-        $trendingSeries = Cache::remember('trending_series', 60 * 60, function () {
+        $trendingSeries = Cache::remember('trending_series', 1, function () {
             return Series::withAvg('reviews', 'rating')
                 ->orderByDesc('reviews_avg_rating')
                 ->take(6)
