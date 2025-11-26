@@ -13,7 +13,9 @@ class SeriesController extends Controller
     {
         // Loads data
 
-        $series = Series::with('genres')->get();
+        $series = Series::with('genres')
+            ->withAvg('reviews', 'rating')
+            ->paginate(18);
         $genres = Genre::all();
 
         // Returns a view with the data
