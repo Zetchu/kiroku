@@ -27,14 +27,18 @@ class AdminSeriesController extends Controller
             'synopsis' => 'nullable|string',
             'type' => 'required|in:Anime,Manga',
             'status' => 'required|in:Airing,Finished,Not yet aired,Cancelled',
-            'imageUrl' => 'required|url',
+            'photo' => 'required|image|max:4096',
             'studio' => 'nullable|string|max:255',
             'episodes' => 'nullable|integer|min:0',
             'genres' => 'array',
             'genres.*' => 'exists:genres,id',
         ]);
 
-        $series = Series::create($request->except('genres'));
+        $series = Series::create($request->except('genres', 'photo') + ['imageUrl' => '']);
+
+        if ($request->hasFile('photo')) {
+            $series->addMediaFromRequest('photo')->toMediaCollection('covers');
+        }
 
         if ($request->has('genres')) {
             $series->genres()->attach($request->genres);
@@ -58,7 +62,7 @@ class AdminSeriesController extends Controller
             'synopsis' => 'nullable|string',
             'type' => 'required|in:Anime,Manga',
             'status' => 'required|in:Airing,Finished,Not yet aired,Cancelled',
-            'imageUrl' => 'required|url',
+            'photo' => 'nullable|image|max:4096',
             'studio' => 'nullable|string|max:255',
             'episodes' => 'nullable|integer|min:0',
             'genres' => 'array',
@@ -66,6 +70,11 @@ class AdminSeriesController extends Controller
         ]);
 
         $series->update($request->except('genres'));
+
+        if ($request->hasFile('photo')) {
+            $series->clearMediaCollection('covers');
+            $series->addMediaFromRequest('photo')->toMediaCollection('covers');
+        }
 
         $series->genres()->sync($request->genres ?? []);
 

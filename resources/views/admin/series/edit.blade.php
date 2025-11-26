@@ -3,7 +3,7 @@
 
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
 
-        <form action="{{ route('admin.series.update', $series->id) }}" method="POST">
+        <form action="{{ route('admin.series.update', $series->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -65,17 +65,14 @@
 
                 {{-- Image URL --}}
                 <div class="col-span-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Cover Image URL</label>
-                    <input type="url" name="imageUrl"
-                           value="{{ old('imageUrl', $series->imageUrl) }}"
-                           placeholder="https://..." required
-                           class="w-full border-gray-300 rounded-md shadow-sm">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Cover Image (Upload)</label>
+                    <input type="file" name="photo" class="w-full border border-gray-300 rounded-md p-2">
+                    @error('photo') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
 
-                    {{-- Visual Preview of current image --}}
                     <div class="mt-2">
                         <p class="text-xs text-gray-500 mb-1">Current Cover:</p>
-                        <img src="{{ $series->imageUrl }}" alt="Current Cover"
-                             class="h-20 w-auto rounded shadow-sm border">
+                        <img alt="{{$series->name}}" src="{{ $series->getImageUrl('preview') }}"
+                             class="h-24 w-auto rounded shadow-sm border">
                     </div>
                 </div>
 

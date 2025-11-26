@@ -2,7 +2,7 @@
     <x-slot name="header">Add New Series</x-slot>
 
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
-        <form action="{{ route('admin.series.store') }}" method="POST">
+        <form action="{{ route('admin.series.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -47,9 +47,9 @@
 
                 {{-- Image URL --}}
                 <div class="col-span-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Cover Image URL</label>
-                    <input type="url" name="imageUrl" placeholder="https://..." required
-                           class="w-full border-gray-300 rounded-md shadow-sm">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Cover Image (Upload)</label>
+                    <input type="file" name="photo" required class="w-full border border-gray-300 rounded-md p-2">
+                    @error('photo') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Synopsis --}}
