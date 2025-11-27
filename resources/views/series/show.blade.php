@@ -135,7 +135,7 @@
 
                     @if($series->comments->isNotEmpty())
                         <ul class="space-y-6">
-                            @foreach($series->comments->take(5) as $comment)
+                            @foreach($series->comments as $comment)
                                 <li class="border-b border-white/5 pb-6 last:border-b-0 last:pb-0 group">
                                     <div class="flex justify-between items-start mb-3">
 
