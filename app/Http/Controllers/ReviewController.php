@@ -40,11 +40,15 @@ class ReviewController extends Controller
         $reviews = Review::with('series')
             ->where('user_id', $userId)
             ->get();
-        
+
         $stats = [
             'total_series' => $reviews->count(),
-            'episodes_watched' => $reviews->sum('progress'),
-            'mean_score' => $reviews->avg('rating') ?? 0,
+            'episodes_watched' => $reviews->filter(function ($review) {
+                return $review->series->type === 'Anime';
+            })->sum('progress'),
+            'chapters_read' => $reviews->filter(function ($review) {
+                return $review->series->type === 'Manga';
+            })->sum('progress'),
         ];
 
         return view('user.list', compact('reviews', 'stats'));
