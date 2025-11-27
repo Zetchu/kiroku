@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/series/{series}/review', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/my-list', [ReviewController::class, 'index'])->name('my-list');
+    Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+
 });
 
 require __DIR__ . '/auth.php';
