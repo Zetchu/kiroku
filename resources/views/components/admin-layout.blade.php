@@ -51,6 +51,12 @@
                 Manage Genres
             </a>
 
+            {{-- Comments Link --}}
+            <a href="{{ route('admin.comments.index') }}"
+               class="block py-2.5 px-4 rounded transition duration-200 {{ request()->routeIs('admin.comments.*') ? 'bg-purple-600 text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
+                Moderation
+            </a>
+
             <div class="border-t border-white/10 my-4"></div>
 
             <a href="/"

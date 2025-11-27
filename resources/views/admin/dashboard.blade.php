@@ -126,6 +126,17 @@
                         </dl>
                     </div>
                 </div>
+
+            </div>
+            <div class="bg-[#252525] px-6 py-3 border-t border-white/5">
+                <a href="{{ route('admin.comments.index') }}"
+                   class="flex items-center text-sm font-medium text-green-400 hover:text-green-300 transition">
+                    Manage Comments
+                    <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
             </div>
         </div>
 

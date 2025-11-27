@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\AdminGenreController;
 use App\Http\Controllers\AdminSeriesController;
 use App\Http\Controllers\CommentsController;
@@ -29,7 +30,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     })->name('index');
     Route::resource('genres', AdminGenreController::class);
     Route::resource('series', AdminSeriesController::class);
-
+    Route::resource('comments', AdminCommentController::class);
 });
 
 Route::get('/dashboard', function () {
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/series/{series}/review', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/my-list', [ReviewController::class, 'index'])->name('my-list');
     Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+
 
 });
 
