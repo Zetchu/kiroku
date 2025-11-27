@@ -6,18 +6,37 @@ use App\Models\Comments;
 use App\Models\Genre;
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class SeriesController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
         // Loads data
 
-        $series = Series::with('genres')
-            ->withAvg('reviews', 'rating')
-            ->paginate(18);
-        $genres = Genre::all();
+        $query = Series::with('genres')
+            ->withAvg('reviews', 'rating');
 
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('genre') && $request->genre !== 'all') {
+            // Check if the series has the selected genre
+            $query->whereHas('genres', function (Builder $q) use ($request) {
+                $q->where('genres.id', $request->genre);
+            });
+        }
+
+        $type = $request->input('type', 'Anime');
+        if ($type !== 'All') {
+            $query->where('type', $type);
+        }
+
+        $series = $query->paginate(18)->withQueryString();
+
+        $genres = Genre::orderBy('name')->get();
+        
         // Returns a view with the data
 
         return view('series.index', compact('series', 'genres'));
