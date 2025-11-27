@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
         //creates my admin acc
         User::factory()->create([
             'name' => 'David Admin',
-            'email' => 'david@test.com',
-            'password' => Hash::make('david100'),
+            'email' => 'admin@test.com',
+            'password' => Hash::make('admin100'),
             'is_admin' => true,
         ]);
         //creates 5 random users
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         });
-        
+
         Comments::factory(30)->recycle($allUsers)->recycle($series)->create();
 
     }

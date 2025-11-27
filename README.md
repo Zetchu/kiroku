@@ -1,91 +1,180 @@
-<p align="center" style="font-size: 24px; margin-bottom: -25px; color: #EF3B2D;">
-    <strong>Educational<br/> Starter Pack<br/></strong><span style="color:gray">for</span>
-</p>
-<p align="center">
-    <a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a>
-</p>
+Kiroku - Anime & Manga Tracker
+==============================
 
+**Kiroku** (Japanese for *record* or *log*) is a modern web application for tracking your anime watching and manga
+reading progress. Built with **Laravel 12**, it features a comprehensive master catalog, personal user lists, and a
+robust administration panel.
 
+🚀 Features
+-----------
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### 🌟 Public & User Features
 
----
+- **Trending Page:** Caching-enabled welcome page displaying top-rated series.
 
-## About this Starter Pack
-<div style="background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-This is a starter pack for <strong>Laravel tailored for educational purposes</strong>. 
+- **Master Catalog:** Browse and search the entire database of Anime and Manga.
 
-It is aimed at helping students and beginners to quickly set up a Laravel development environment that allows for 
-learning the basics without the need to configure everything from scratch.
-</div>
+- **Personal Tracking:** Users can maintain a "My List" with statuses (*Watching, Completed, Plan to Watch*), ratings (
+  1-10), and episode/chapter progress.
 
-### Changes from the original Laravel repository
-It provides a pre-configured environment with some opinionated settings and packages for the educational context. 
-Customisation was done based on Laravel version 12.x. (12.37.0 on November 9th, 2025).
+- **Instant Filtering:** Client-side filtering (Alpine.js) for personal lists to instantly toggle between Anime/Manga or
+  specific statuses.
 
-- Added **barryvdh/laravel-debugbar** for debug info in the browser
-- Altered **.env.example** for local development (SQLite database, debug mode on, cache and session set to file)
-- Added **roave/security-advisories** to prevent installation of packages with known security issues
-- Used **laravel/breeze** for authentication scaffolding with Blade templates (but moved all of the component views to a `components.breeze` subfolder for better organization)
-- Replaced vite and related front-end dependencies by **CDN includes of Tailwind CSS and Alpine JS** to keep things simple
-- Replaced PHP Unit by **Pest PHP** for testing, kept basic example tests
-- Some other small tweaks in configuration files, routes, controller, and view organisation to better reflect the educational purpose (rigid structure)
+- **Community:** Registered users can post comments and discuss series.
 
-Everything that follows below (and the shields in the header) are part of the original Laravel README.md file.
+- **Profile Management:** Update profile details, change passwords, or delete accounts.
 
----
-## About Laravel
+### 🛡️ Admin Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Dedicated Admin Panel:** Secured via Middleware (`is_admin` flag).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Dashboard:** Overview statistics for Series, Users, Genres, and Comments.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Series CRUD:** Full management of series including **Image Uploads** (handled via Spatie Media Library) with
+  automatic thumbnail generation.
 
-## Learning Laravel
+- **Genre Management:** Create, Edit, and Delete genres.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Comment Moderation:** Admins can view and delete any user comment.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* * * * *
 
-## Laravel Sponsors
+🛠️ Tech Stack
+--------------
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Backend:** PHP 8.3+, Laravel 12
 
-### Premium Partners
+- **Frontend:** Blade Templates, Tailwind CSS v4 (via CDN), Alpine.js
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Database:** SQLite (Default) / MySQL
 
-## Contributing
+- **Media:** Spatie Laravel Media Library
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Authentication:** Laravel Breeze
 
-## Code of Conduct
+* * * * *
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+⚙️ Installation
+---------------
 
-## Security Vulnerabilities
+Follow these steps to set up the project locally.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1\. Clone the Repository
 
-## License
+Bash
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+git clone https://github.com/yourusername/kiroku.git
+cd kiroku
+
+```
+
+### 2\. Install Dependencies
+
+Bash
+
+```
+composer install
+npm install
+
+```
+
+### 3\. Environment Setup
+
+Copy the example environment file and generate your application key.
+
+Bash
+
+```
+cp .env.example .env
+php artisan key:generate
+
+```
+
+### 4\. Database Setup (SQLite)
+
+Create the SQLite database file:
+
+Bash
+
+```
+touch database/database.sqlite
+
+```
+
+*Note: If you prefer MySQL, update `DB_CONNECTION=mysql` in your `.env` file.*
+
+### 5\. Run Migrations & Seed Data
+
+This will create all tables and populate the database with the default **Admin Account** and sample data.
+
+Bash
+
+```
+php artisan migrate:fresh --seed
+
+```
+
+### 6\. Link Storage
+
+Create the symbolic link to allow public access to uploaded images.
+
+Bash
+
+```
+php artisan storage:link
+
+```
+
+### 7\. Run the Application
+
+Bash
+
+```
+npm run build
+php artisan serve
+
+```
+
+The app will be available at `http://localhost:8000`.
+
+* * * * *
+
+🔑 Default Credentials
+----------------------
+
+The database seeder creates a default **Admin** account for testing:
+
+- **Email:** `admin@test.com`
+
+- **Password:** `admin100`
+
+*You can also register a new account to test the standard user features.*
+
+* * * * *
+
+📂 Key Functionalities & Logic
+------------------------------
+
+### 1\. Image Handling (Polymorphic)
+
+Images are not stored as simple text strings. Kiroku uses **Spatie Media Library** to handle file uploads.
+
+- **Uploads:** Admins upload cover images via the Admin Panel.
+
+- **Conversions:** The system automatically crops images to `300x450` (List View) and `600x900` (Detail View).
+
+- **Fallback:** The `getImageUrl()` helper method ensures a valid image or placeholder is always displayed.
+
+### 2\. Search & Filtering
+
+- **Server-Side Search:** Used in the Admin Panel and Catalog to handle large datasets efficiently with Pagination.
+
+- **Client-Side Filtering:** Used in "My List" (Alpine.js) to provide an instant, app-like experience for sorting
+  personal entries.
+
+### 3\. Authorization
+
+- **Policies:** Users can only delete their *own* comments. Admins can delete *any* comment.
+
+- **Middleware:** Admin routes are protected by a custom `IsAdmin` middleware that checks the database flag.
