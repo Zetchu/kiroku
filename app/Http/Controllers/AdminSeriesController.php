@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class AdminSeriesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $series = Series::with('genres')->latest()->paginate(10);
+        $query = Series::with('genres')->latest();
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $series = $query->paginate(10)->withQueryString();
         return view('admin.series.index', compact('series'));
     }
 

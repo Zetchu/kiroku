@@ -12,18 +12,39 @@
 
         {{-- status header --}}
         <div class="grid grid-cols-3 gap-4 text-center mb-12">
-            <div>
-                <h2 class="text-5xl font-extrabold text-white mb-1">{{ $stats['total_series'] }}</h2>
-                <p class="text-gray-400 text-sm uppercase tracking-wider">Total Series</p>
+            <div class="bg-[#1a1a1a] p-6 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 shadow-lg">
+                <div class="p-3 bg-purple-500/10 rounded-full text-purple-400 mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl font-extrabold text-white">{{ $stats['total_series'] }}</h2>
+                <p class="text-gray-400 text-xs uppercase tracking-wider font-bold">Total Entries</p>
             </div>
-            <div>
-                <h2 class="text-5xl font-extrabold text-white mb-1">{{ $stats['episodes_watched'] }}</h2>
-                <p class="text-gray-400 text-sm uppercase tracking-wider">Episodes Watched</p>
+            <div class="bg-[#1a1a1a] p-6 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 shadow-lg">
+                <div class="p-3 bg-blue-500/10 rounded-full text-blue-400 mb-1">
+                    {{-- Play/TV Icon --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl font-extrabold text-white">{{ $stats['episodes_watched'] }}</h2>
+                <p class="text-gray-400 text-xs uppercase tracking-wider font-bold">Episodes Watched</p>
             </div>
-            {{--            maybe not needed--}}
-            <div>
-                <h2 class="text-5xl font-extrabold text-white mb-1">{{ number_format($stats['mean_score'], 1) }}</h2>
-                <p class="text-gray-400 text-sm uppercase tracking-wider">Mean Score</p>
+            <div class="bg-[#1a1a1a] p-6 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 shadow-lg">
+                <div class="p-3 bg-green-500/10 rounded-full text-green-400 mb-1">
+                    {{-- Book Icon --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.247m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.247"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl font-extrabold text-white">{{ $stats['chapters_read'] }}</h2>
+                <p class="text-gray-400 text-xs uppercase tracking-wider font-bold">Chapters Read</p>
             </div>
         </div>
 
