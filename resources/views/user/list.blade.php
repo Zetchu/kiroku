@@ -3,9 +3,16 @@
     <div x-data="{
             currentType: 'Anime',
             currentStatus: 'All',
-            filterItem(type, status) {
+            search: '',
+         filterItem(el) {
+                const type = el.dataset.type;
+                const status = el.dataset.status;
+                const title = el.dataset.title.toLowerCase();
+                const query = this.search.toLowerCase();
+
                 return (this.currentType === type) &&
-                       (this.currentStatus === 'All' || this.currentStatus === status);
+                       (this.currentStatus === 'All' || this.currentStatus === status) &&
+                       (title.includes(query));
             }
          }"
          class="pt-28 pb-16 max-w-7xl mx-auto px-6">
@@ -64,14 +71,19 @@
                 </button>
             </div>
 
-            <div class="bg-[#1a1a1a] p-1 rounded-lg flex space-x-1">
-                @foreach(['All', 'Watching', 'Completed', 'Plan to Watch'] as $status)
-                    <button @click="currentStatus = '{{ $status }}'"
-                            class="px-4 py-1.5 text-sm font-medium rounded-md transition duration-200"
-                            :class="currentStatus === '{{ $status }}' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white'">
-                        {{ $status }}
-                    </button>
-                @endforeach
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input type="text" x-model="search" placeholder="Search your list..."
+                       class="bg-[#1a1a1a] text-white border border-white/10 rounded-lg px-4 py-2 focus:border-purple-500 focus:ring-0 transition w-full sm:w-64">
+
+                <div class="bg-[#1a1a1a] p-1 rounded-lg flex space-x-1">
+                    @foreach(['All', 'Watching', 'Completed', 'Plan to Watch'] as $status)
+                        <button @click="currentStatus = '{{ $status }}'"
+                                class="px-4 py-1.5 text-sm font-medium rounded-md transition duration-200"
+                                :class="currentStatus === '{{ $status }}' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white'">
+                            {{ $status }}
+                        </button>
+                    @endforeach
+                </div>
             </div>
         </div>
 
@@ -87,7 +99,10 @@
                 </thead>
                 <tbody class="text-white text-sm">
                 @forelse($reviews as $review)
-                    <tr x-show="filterItem('{{ $review->series->type }}', '{{ $review->status }}')"
+                    <tr x-show="filterItem($el)"
+                        data-type="{{ $review->series->type }}"
+                        data-status="{{ $review->status }}"
+                        data-title="{{ $review->series->name }}"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
