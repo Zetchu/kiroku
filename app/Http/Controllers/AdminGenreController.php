@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class AdminGenreController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $genres = Genre::orderBy('name')->get();
+        $query = Genre::orderBy('name');
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        $genres = $query->paginate(10)->withQueryString();
         return view('admin.genres.index', compact('genres'));
     }
 
