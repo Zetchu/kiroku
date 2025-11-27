@@ -1,73 +1,78 @@
 <x-admin-layout>
     <x-slot name="header">Manage Series</x-slot>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
+    <div class="bg-[#1a1a1a] overflow-hidden shadow-xl rounded-2xl border border-white/5">
+        <div class="p-6">
 
-            <div class="flex justify-between mb-6">
-                <h3 class="text-lg font-medium text-gray-900">Master Catalog</h3>
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <h3 class="text-xl font-bold text-white tracking-tight">Master Catalog</h3>
                 <a href="{{ route('admin.series.create') }}"
-                   class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition">
-                    + Add New Series
+                   class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-5 rounded-lg transition shadow-lg shadow-purple-500/20 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Add New Series
                 </a>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+            <div class="overflow-x-auto rounded-xl border border-white/5">
+                <table class="min-w-full divide-y divide-white/10">
+                    <thead class="bg-[#252525]">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Title
+                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">
+                            Title & Status
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">
                             Type
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">
                             Studio
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">
                             Genres
                         </th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">
                             Actions
                         </th>
                     </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-[#1a1a1a] divide-y divide-white/5">
                     @foreach($series as $show)
-                        <tr>
+                        <tr class="hover:bg-white/5 transition duration-150">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-full object-cover"
+                                    <div class="flex-shrink-0 h-12 w-12">
+                                        <img class="h-12 w-12 rounded-lg object-cover border border-white/10"
                                              src="{{ $show->getImageUrl('preview') }}"
                                              alt="">
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $show->name }}</div>
-                                        <div class="text-sm text-gray-500">{{ $show->status }}</div>
+                                        <div class="text-sm font-bold text-white">{{ $show->name }}</div>
+                                        <div class="text-xs text-gray-500 mt-0.5">{{ $show->status }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $show->type === 'Anime' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' }}">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full border {{ $show->type === 'Anime' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' : 'bg-blue-500/10 text-blue-400 border-blue-500/20' }}">
                                         {{ $show->type }}
                                     </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $show->studio ?? 'N/A' }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                                {{ $show->studio ?? '-' }}
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                                 {{ $show->genres->pluck('name')->implode(', ') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.series.edit', $show->id) }}"
-                                   class="text-indigo-600 hover:text-indigo-900 mr-4">Edit</a>
+                                   class="text-gray-400 hover:text-white mr-4 transition">Edit</a>
 
                                 <form action="{{ route('admin.series.destroy', $show->id) }}" method="POST"
-                                      class="inline-block" onsubmit="return confirm('Delete this series?');">
+                                      class="inline-block"
+                                      onsubmit="return confirm('Are you sure you want to delete {{ $show->name }}?');">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    <button type="submit" class="text-red-500 hover:text-red-400 transition">Delete
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -75,7 +80,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-4">
+
+            {{-- Pagination with Dark Mode Support --}}
+            <div class="mt-6">
                 {{ $series->links() }}
             </div>
         </div>

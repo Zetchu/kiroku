@@ -42,7 +42,7 @@
                    class="group relative rounded-xl overflow-hidden cursor-pointer bg-[#111] transition hover:-translate-y-2 duration-300"
                    data-type="{{ $series->type }}">
                     <div class="aspect-[2/3] w-full relative">
-                        <img src="{{ $series->imageUrl }}" alt="{{ $series->name }}"
+                        <img src="{{ $series->getImageUrl('website') }}" alt="{{ $series->name }}"
                              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
 

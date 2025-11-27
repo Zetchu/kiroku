@@ -7,7 +7,7 @@
             <div class="flex flex-col md:flex-row gap-10 items-start mb-16">
 
                 <div class="w-full md:w-64 flex-shrink-0 relative rounded-xl overflow-hidden shadow-2xl shadow-purple-900/40">
-                    <img src="{{ $series->imageUrl }}" alt="{{ $series->name }}"
+                    <img src="{{ $series->getImageUrl('website') }}" alt="{{ $series->name }}"
                          class="w-full aspect-[2/3] object-cover">
 
                     @if(isset($userReview) && $userReview)
@@ -18,7 +18,7 @@
 
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 </div>
-                
+
                 <div class="flex-grow pt-8">
                     <h1 class="text-5xl font-extrabold text-white mb-4 leading-tight">
                         {{ $series->name }}

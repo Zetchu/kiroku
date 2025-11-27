@@ -75,7 +75,7 @@
                         <td class="py-4 pl-4">
                             <a href="{{ route('series.show', $review->series->id) }}"
                                class="flex items-center gap-4 group-hover:text-accent transition">
-                                <img src="{{ $review->series->imageUrl }}" alt=""
+                                <img src="{{ $review->series->getImageUrl('preview') }}" alt=""
                                      class="w-12 h-16 object-cover rounded-md shadow-sm">
                                 <span class="font-bold text-base">{{ $review->series->name }}</span>
                             </a>

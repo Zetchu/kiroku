@@ -42,7 +42,7 @@
 
 
                     <div class="aspect-[2/3] w-full relative">
-                        <img src="{{ $show->imageUrl }}" alt="{{ $show->name }}"
+                        <img src="{{ $show->getImageUrl('preview') }}" alt="{{ $show->name }}"
                              class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                         <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-2 py-1 rounded-md flex items-center gap-1">
