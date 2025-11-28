@@ -49,7 +49,7 @@ class AdminSeriesController extends Controller
         if ($request->has('genres')) {
             $series->genres()->attach($request->genres);
         }
-
+        cache()->forget('trending_series');
         return redirect()->route('admin.series.index')->with('success', 'Series created successfully.');
     }
 

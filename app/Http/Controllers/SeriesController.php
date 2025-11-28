@@ -14,7 +14,7 @@ class SeriesController extends Controller
     {
         // Loads data
 
-        $query = Series::with('genres')
+        $query = Series::with(['genres', 'media'])
             ->withAvg('reviews', 'rating');
 
         if ($request->filled('search')) {
@@ -36,7 +36,7 @@ class SeriesController extends Controller
         $series = $query->paginate(18)->withQueryString();
 
         $genres = Genre::orderBy('name')->get();
-        
+
         // Returns a view with the data
 
         return view('series.index', compact('series', 'genres'));
