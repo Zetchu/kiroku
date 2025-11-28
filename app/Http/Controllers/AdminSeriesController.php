@@ -10,7 +10,7 @@ class AdminSeriesController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Series::with('genres')->latest();
+        $query = Series::with(['genres', 'media'])->latest();
 
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');

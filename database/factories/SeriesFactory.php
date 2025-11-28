@@ -15,7 +15,7 @@ class SeriesFactory extends Factory
      * @return array<string, mixed>
      */
 
-    private static $seriesData = [
+    public static $seriesData = [
         [
             'name' => 'Attack on Titan',
             'synopsis' => 'After his hometown is destroyed, Eren Yeager vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.',
@@ -101,7 +101,7 @@ class SeriesFactory extends Factory
             'name' => 'My Hero Academia',
             'synopsis' => 'In a world where most people have superpowers, a boy born without them enrolls in a prestigious hero academy, determined to prove himself.',
             'imageUrl' => 'https://m.media-amazon.com/images/M/MV5BY2QzODA5OTQtYWJlNi00ZjIzLThhNTItMDMwODhlYzYzMjA2XkEyXkFqcGc@._V1_.jpg',
-            'type' => 'Manga',
+            'type' => 'Anime',
             'status' => 'Airing',
             'studio' => 'Bones',
             'episodes' => 138,
@@ -141,6 +141,51 @@ class SeriesFactory extends Factory
             'status' => 'Airing',
             'studio' => 'MAPPA',
             'episodes' => 12,
+        ],
+        [
+            'name' => 'Vagabond',
+            'synopsis' => 'Growing up in 16th century Sengoku era Japan, Shinmen Takezou is shunned by the local villagers as a devil child due to his wild and violent nature.',
+            'imageUrl' => 'https://m.media-amazon.com/images/I/81AQnk9bGaL._AC_UF1000,1000_QL80_.jpg',
+            'type' => 'Manga',
+            'status' => 'Finished', // It's technically on hiatus, but often categorized as complete volumes
+            'studio' => 'Inoue Takehiko', // Author
+            'episodes' => 327, // Chapters
+        ],
+        [
+            'name' => 'Goodnight Punpun',
+            'synopsis' => 'Punpun Onodera is a normal 11-year-old boy living in Japan. Hopelessly idealistic and romantic, Punpun begins to see his life take a subtle—though nonetheless startling—turn to the adult.',
+            'imageUrl' => 'https://img1.od-cdn.com/ImageType-100/6378-1/%7B66C4CA48-104A-4FEC-8D1E-AA60C5D2623F%7DImg100.jpg',
+            'type' => 'Manga',
+            'status' => 'Finished',
+            'studio' => 'Asano Inio',
+            'episodes' => 147,
+        ],
+        [
+            'name' => '20th Century Boys',
+            'synopsis' => 'Kenji Endo is a normal convenience store manager who\'s just trying to get by. But when he learns that one of his old friends has supposedly committed suicide, he drops everything to find the truth.',
+            'imageUrl' => 'https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781421535388/naoki-urasawas-20th-century-boys-vol-20-9781421535388_hr.jpg',
+            'type' => 'Manga',
+            'status' => 'Finished',
+            'studio' => 'Urasawa Naoki',
+            'episodes' => 249,
+        ],
+        [
+            'name' => 'Kingdom',
+            'synopsis' => 'During the Warring States period in China, Xin and Piao are two war-orphaned slave boys who work as servants in a poor village.',
+            'imageUrl' => 'https://www.universal-comics.com/media/products/149751/149751-0-big.jpg',
+            'type' => 'Manga',
+            'status' => 'Airing',
+            'studio' => 'Hara Yasuhisa',
+            'episodes' => 800,
+        ],
+        [
+            'name' => 'Monster',
+            'synopsis' => 'Dr. Kenzo Tenma is a renowned brain surgeon of Japanese descent working in Europe. Highly lauded by his peers as one of the great young minds that will revolutionize the field, he is blessed with a beautiful fiancé and is on the cusp of a big promotion.',
+            'imageUrl' => 'https://preview.redd.it/thoughts-on-naoki-urasawas-monster-manga-anime-v0-uvlskkc5y8jc1.png?auto=webp&s=57a68710124d4e34b304e23233ae9026d3cb4f92',
+            'type' => 'Manga',
+            'status' => 'Finished',
+            'studio' => 'Urasawa Naoki',
+            'episodes' => 162,
         ],
     ];
 

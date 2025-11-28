@@ -7,7 +7,9 @@ use App\Models\Genre;
 use App\Models\Review;
 use App\Models\Series;
 use App\Models\User;
-use Database\Factories\GenreFactory;
+use Database\Factories\SeriesFactory;
+
+// Import the factory class
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,21 +18,20 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        //creates my admin acc
+        // 1. Create Admin
         User::factory()->create([
             'name' => 'David Admin',
-            'email' => 'admin@test.com',
-            'password' => Hash::make('admin100'),
+            'email' => 'david@test.com',
+            'password' => Hash::make('david100'),
             'is_admin' => true,
         ]);
-        //creates 5 random users
-        User::factory(5)->create();
-        //creates generes
+
+        // 2. Create Random Users
+        $users = User::factory(10)->create();
+
+        // 3. Create Genres
         $genres = Genre::insert([
             ['name' => 'Shonen'],
             ['name' => 'Sci-fi'],
@@ -38,23 +39,39 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Action'],
             ['name' => 'Slice of Life'],
             ['name' => 'Mystery'],
+            ['name' => 'Horror'],
+            ['name' => 'Romance'],
         ]);
-
         $genreIds = Genre::pluck('id')->all();
-        $series = Series::factory(14)->create();
 
-        $series->each(function (Series $series) use ($genreIds) {
-            // Randomly select 1 to 3 genre IDs from the array
+        // 4. Create Series (Master Catalog)
+        // Automatically counts how many items are in the static array so we don't miss any
+        $totalSeriesCount = count(SeriesFactory::$seriesData);
+        $seriesList = Series::factory($totalSeriesCount)->create();
+
+        // Attach genres
+        $seriesList->each(function ($series) use ($genreIds) {
             $series->genres()->attach(
                 fake()->randomElements($genreIds, fake()->numberBetween(1, 3))
             );
         });
 
-        // we make each user review 5 to 10 random series
+        // 5. Create Reviews (Logic updated to leave 2 unreviewed)
         $allUsers = User::all();
 
-        $allUsers->each(function ($user) use ($series) {
-            $randomSeries = $series->random(rand(5, 10));
+        // Identify one Anime and one Manga to EXCLUDE from reviews
+        $unreviewedAnime = $seriesList->where('type', 'Anime')->first();
+        $unreviewedManga = $seriesList->where('type', 'Manga')->first();
+
+        // Filter the list: Users will only review series NOT in this exclusion list
+        $reviewableSeries = $seriesList->reject(function ($series) use ($unreviewedAnime, $unreviewedManga) {
+            return $series->id === $unreviewedAnime->id || $series->id === $unreviewedManga->id;
+        });
+
+        $allUsers->each(function ($user) use ($reviewableSeries) {
+            // Pick random series from the FILTERED list
+            $randomSeries = $reviewableSeries->random(rand(3, 8)); // Adjusted count slightly
+
             foreach ($randomSeries as $serie) {
                 Review::factory()->create([
                     'user_id' => $user->id,
@@ -66,7 +83,7 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        Comments::factory(30)->recycle($allUsers)->recycle($series)->create();
-
+        // 6. Create Comments (Also only on reviewable series to keep the others clean)
+        Comments::factory(30)->recycle($allUsers)->recycle($reviewableSeries)->create();
     }
 }

@@ -9,7 +9,8 @@ class AdminGenreController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Genre::orderBy('name');
+        $query = Genre::withCount('series')
+            ->orderBy('name');
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }

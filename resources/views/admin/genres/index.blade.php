@@ -52,7 +52,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                             {{-- Styled Badge for Count --}}
                             <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                                        {{ $genre->series()->count() }} Series
+                                       {{ $genre->series_count }} Series
                                     </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
