@@ -16,7 +16,7 @@ class CommentsController extends Controller
     {
         // input validation
         $request->validate([
-            'content' => 'required|min:3|max:1000',
+            'content' => 'required|min:3|max:400',
         ]);
 
         Comments::create([
