@@ -64,7 +64,7 @@ Follow these steps to set up the project locally.
 Bash
 
 ```
-git clone https://github.com/yourusername/kiroku.git
+git clone https://github.com/zetchu/kiroku.git
 cd kiroku
 
 ```
