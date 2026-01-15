@@ -21,9 +21,9 @@ class ReviewFactory extends Factory
         return [
             'user_id' => User::factory(),
             'series_id' => Series::factory(),
-            'status' => fake()->randomElement(['Watching', 'Completed', 'Plan to Watch']),
-            'rating' => fake()->numberBetween(1, 10),
-            'progress' => fake()->numberBetween(1, 12),
+            'status' => $this->faker->randomElement(['Watching', 'Completed', 'Plan to Watch']),
+            'rating' => $this->faker->numberBetween(1, 10),
+            'progress' => $this->faker->numberBetween(1, 12),
         ];
     }
 }

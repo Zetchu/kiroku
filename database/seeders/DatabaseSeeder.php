@@ -13,6 +13,7 @@ use Database\Factories\SeriesFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker; 
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,9 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        // 0. Create Faker Instance manually
+        $faker = Faker::create();
+
         // 1. Create Admin
         User::factory()->create([
             'name' => 'David Admin',
@@ -52,7 +56,7 @@ class DatabaseSeeder extends Seeder
         // Attach genres
         $seriesList->each(function ($series) use ($genreIds) {
             $series->genres()->attach(
-                fake()->randomElements($genreIds, fake()->numberBetween(1, 3))
+                $faker->randomElements($genreIds, fake()->numberBetween(1, 3))
             );
         });
 
@@ -76,9 +80,9 @@ class DatabaseSeeder extends Seeder
                 Review::factory()->create([
                     'user_id' => $user->id,
                     'series_id' => $serie->id,
-                    'rating' => fake()->numberBetween(5, 10),
-                    'status' => fake()->randomElement(['Watching', 'Completed']),
-                    'progress' => fake()->numberBetween(1, $serie->episodes ?? 24),
+                    'rating' => $faker->numberBetween(5, 10),
+                    'status' => $faker->randomElement(['Watching', 'Completed']),
+                    'progress' => $faker->numberBetween(1, $serie->episodes ?? 24),
                 ]);
             }
         });

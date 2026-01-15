@@ -192,7 +192,7 @@ class SeriesFactory extends Factory
     public function definition(): array
     {
         // Pick a random series from our predefined list
-        $series = fake()->unique()->randomElement(self::$seriesData);
+        $series = $this->faker->unique()->randomElement(self::$seriesData);
 
         return [
             'name' => $series['name'],
