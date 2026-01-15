@@ -21,9 +21,6 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // 0. Create Faker Instance manually
-        $faker = Faker::create();
-
         // 1. Create Admin
         User::factory()->create([
             'name' => 'David Admin',
@@ -32,10 +29,10 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-        // 2. Create Random Users
-        $users = User::factory(10)->create();
+      
+        $this->command->info('Admin User created (or already exists).');
 
-        // 3. Create Genres
+        // 2. Create Genres
         $genres = Genre::insert([
             ['name' => 'Shonen'],
             ['name' => 'Sci-fi'],
@@ -59,9 +56,6 @@ class DatabaseSeeder extends Seeder
                 $faker->randomElements($genreIds, fake()->numberBetween(1, 3))
             );
         });
-
-        // 5. Create Reviews (Logic updated to leave 2 unreviewed)
-        $allUsers = User::all();
 
         // Identify one Anime and one Manga to EXCLUDE from reviews
         $unreviewedAnime = $seriesList->where('type', 'Anime')->first();
@@ -87,7 +81,6 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        // 6. Create Comments (Also only on reviewable series to keep the others clean)
-        Comments::factory(30)->recycle($allUsers)->recycle($reviewableSeries)->create();
+   
     }
 }
