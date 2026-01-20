@@ -28,6 +28,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('index');
+    Route::post('/series/import', [AdminSeriesController::class, 'import'])->name('series.import');
     Route::resource('genres', AdminGenreController::class);
     Route::resource('series', AdminSeriesController::class);
     Route::resource('comments', AdminCommentController::class);
