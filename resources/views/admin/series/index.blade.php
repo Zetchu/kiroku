@@ -18,6 +18,8 @@
                     </div>
                 </form>
 
+                <livewire:series-importer/>
+
                 <a href="{{ route('admin.series.create') }}"
                    class="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-6 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-500/30 transition-all duration-200 hover:-translate-y-0.5">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

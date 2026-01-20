@@ -2,12 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\AnimeLibraryInterface;
 use App\Models\Genre;
 use App\Models\Series;
 use Illuminate\Http\Request;
 
 class AdminSeriesController extends Controller
 {
+    public function __construct(
+        protected AnimeLibraryInterface $animeService
+    )
+    {
+    }
+
+    public function import(Request $request)
+    {
+        $type = $request->input('type', 'anime'); // 'anime' or 'manga'
+
+        $results = $this->animeService->fetchPopular($type);
+
+        if (empty($results)) {
+            return back()->with('error', 'API fetch failed or returned no data. Check logs.');
+        }
+
+        $count = 0;
+        foreach ($results as $data) {
+            $series = Series::updateOrCreate(
+                ['name' => $data['name']], // duplicates check
+                [
+                    'synopsis' => $data['synopsis'],
+                    'type' => $data['type'],
+                    'status' => $data['status'],
+                    'studio' => $data['studio'],
+                    'episodes' => $data['episodes'],
+                    'imageUrl' => $data['imageUrl'],
+                ]
+            );
+
+            // Genre sync
+            $genreIds = [];
+            foreach ($data['genres'] as $genreName) {
+                $genre = Genre::firstOrCreate(['name' => $genreName]);
+                $genreIds[] = $genre->id;
+            }
+            $series->genres()->sync($genreIds);
+
+            // image handling
+            if (!$series->hasMedia('covers')) {
+                try {
+                    $series->addMediaFromUrl($data['imageUrl'])->toMediaCollection('covers');
+                } catch (\Exception $e) {
+                  
+                }
+            }
+            $count++;
+        }
+
+        return back()->with('success', "Successfully imported {$count} {$type} series!");
+    }
+
     public function index(Request $request)
     {
         $query = Series::with(['genres', 'media'])->latest();
