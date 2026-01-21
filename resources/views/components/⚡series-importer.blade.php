@@ -54,6 +54,7 @@ new class extends Component {
         }
 
         $this->statusMessage = "Success! Imported {$count} {$this->type} series.";
+        $this->dispatch('series-imported');
     }
 };
 ?>

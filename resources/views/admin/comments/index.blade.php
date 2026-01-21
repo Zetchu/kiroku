@@ -45,16 +45,22 @@
                     @foreach($comments as $comment)
                         <tr class="hover:bg-white/5 transition duration-150">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-white">
-                                {{ $comment->user->name }}
+                                {{ $comment->user->name ?? 'Unknown / Deleted User' }}
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-300 max-w-md truncate">
                                 {{ $comment->content }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-purple-400">
-                                <a href="{{ route('series.show', $comment->series_id) }}" target="_blank"
-                                   class="hover:underline">
-                                    {{ $comment->series->name }}
-                                </a>
+                                @if($comment->series)
+                                    <a href="{{ route('series.show', $comment->series_id) }}" target="_blank"
+                                       class="hover:underline">
+                                        {{ $comment->series->name }}
+                                    </a>
+                                @else
+                                    <span class="text-red-400 italic text-xs">
+                        Series Deleted
+                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-500">
                                 {{ $comment->created_at->diffForHumans() }}
