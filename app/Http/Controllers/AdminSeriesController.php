@@ -52,7 +52,7 @@ class AdminSeriesController extends Controller
                 try {
                     $series->addMediaFromUrl($data['imageUrl'])->toMediaCollection('covers');
                 } catch (\Exception $e) {
-                  
+
                 }
             }
             $count++;
@@ -63,14 +63,7 @@ class AdminSeriesController extends Controller
 
     public function index(Request $request)
     {
-        $query = Series::with(['genres', 'media'])->latest();
-
-        if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        $series = $query->paginate(10)->withQueryString();
-        return view('admin.series.index', compact('series'));
+        return view('admin.series.index');
     }
 
     public function create()

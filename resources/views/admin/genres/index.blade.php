@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        {{-- Table --}}
+
         <div class="overflow-x-auto rounded-xl border border-white/5">
             <table class="min-w-full divide-y divide-white/10">
                 <thead class="bg-[#252525]">
@@ -72,6 +72,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="p-6 border-t border-white/5">
+            {{ $genres->withQueryString()->links() }}
         </div>
     </div>
 
