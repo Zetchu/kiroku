@@ -1,5 +1,16 @@
 <x-admin-layout>
     <x-slot name="header">Manage Series</x-slot>
+    <div class="flex gap-2">
+        <a href="{{ route('admin.series.export') }}" target="_blank"
+           class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+            Export Data
+        </a>
+
+        <a href="{{ route('admin.series.create') }}"
+           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+            Create New
+        </a>
+    </div>
 
     <div class="bg-[#1a1a1a] overflow-hidden shadow-xl rounded-2xl border border-white/5">
 
