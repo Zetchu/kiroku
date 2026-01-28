@@ -28,6 +28,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('index');
+    Route::get('/series/export', \App\Http\Controllers\AdminSeriesExportController::class)->name('series.export');
     Route::post('/series/import', [AdminSeriesController::class, 'import'])->name('series.import');
     Route::resource('genres', AdminGenreController::class);
     Route::resource('series', AdminSeriesController::class);
