@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\AnalyzeCommentForToxicityJob;
 use App\Models\Comments;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -19,11 +20,13 @@ class CommentsController extends Controller
             'content' => 'required|min:3|max:400',
         ]);
 
-        Comments::create([
+        $comment = Comments::create([
             'content' => $request->input('content'),
             'series_id' => $seriesId,
             'user_id' => Auth::id(),
         ]);
+
+        AnalyzeCommentForToxicityJob::dispatch($comment);
 
         return back();
     }
