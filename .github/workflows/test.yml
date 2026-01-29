@@ -45,8 +45,11 @@ jobs:
       # 7. Set Permissions (Common fix for CI)
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
+      # 8. Static Code Analysis
+      - name: 🎨 Check Code Style (Pint)
+        run: ./vendor/bin/pint --test
 
-      # 8. Run Tests
+      # 9. Run Tests
       - name: Execute tests (Pest)
         env:
           DB_CONNECTION: sqlite
