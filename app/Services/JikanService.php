@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Interfaces\AnimeLibraryInterface;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class JikanService implements AnimeLibraryInterface
@@ -17,7 +17,8 @@ class JikanService implements AnimeLibraryInterface
                 $response = Http::timeout(15)->get("https://api.jikan.moe/v4/top/{$type}?page={$page}");
 
                 if ($response->failed()) {
-                    Log::error("Jikan API Failed: " . $response->body());
+                    Log::error('Jikan API Failed: '.$response->body());
+
                     return [];
                 }
 
@@ -37,7 +38,8 @@ class JikanService implements AnimeLibraryInterface
                 }, $data);
 
             } catch (\Exception $e) {
-                Log::error("Jikan Service Error: " . $e->getMessage());
+                Log::error('Jikan Service Error: '.$e->getMessage());
+
                 return [];
             }
         });
@@ -55,12 +57,13 @@ class JikanService implements AnimeLibraryInterface
 
     private function getStudioOrAuthor($item)
     {
-        if (!empty($item['studios'])) {
+        if (! empty($item['studios'])) {
             return $item['studios'][0]['name'];
         }
-        if (!empty($item['authors'])) {
+        if (! empty($item['authors'])) {
             return $item['authors'][0]['name'];
         }
+
         return 'Unknown';
     }
 }

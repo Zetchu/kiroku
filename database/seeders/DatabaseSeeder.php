@@ -2,18 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Comments;
 use App\Models\Genre;
 use App\Models\Review;
 use App\Models\Series;
 use App\Models\User;
 use Database\Factories\SeriesFactory;
-
 // Import the factory class
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker; 
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,7 +26,6 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-      
         $this->command->info('Admin User created (or already exists).');
 
         // 2. Create Genres
@@ -81,6 +77,5 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-   
     }
 }

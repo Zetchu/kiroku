@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comments;
 use App\Models\Genre;
 use App\Models\Series;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
-    function index(Request $request)
+    public function index(Request $request)
     {
         // Loads data
 
@@ -18,7 +17,7 @@ class SeriesController extends Controller
             ->withAvg('reviews', 'rating');
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%'.$request->search.'%');
         }
 
         if ($request->filled('genre') && $request->genre !== 'all') {
@@ -42,7 +41,7 @@ class SeriesController extends Controller
         return view('series.index', compact('series', 'genres'));
     }
 
-    function show(int $id)
+    public function show(int $id)
     {
         $series = Series::with(['genres', 'comments.user'])->findOrFail($id);
 

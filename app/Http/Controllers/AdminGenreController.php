@@ -12,12 +12,12 @@ class AdminGenreController extends Controller
         $query = Genre::withCount('series')
             ->orderBy('name');
         if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%'.$request->search.'%');
         }
         $genres = $query->paginate(10)->withQueryString();
+
         return view('admin.genres.index', compact('genres'));
     }
-
 
     public function create()
     {
@@ -46,7 +46,7 @@ class AdminGenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $request->validate([
-            'name' => 'required|max:255|unique:genres,name,' . $genre->id,
+            'name' => 'required|max:255|unique:genres,name,'.$genre->id,
         ]);
 
         $genre->update([

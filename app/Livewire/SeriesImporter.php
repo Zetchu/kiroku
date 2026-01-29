@@ -10,7 +10,9 @@ use Livewire\Component;
 class SeriesImporter extends Component
 {
     public $type = 'anime';
+
     public $page = 1;
+
     public $statusMessage = '';
 
     public function import(AnimeLibraryInterface $animeService)
@@ -20,6 +22,7 @@ class SeriesImporter extends Component
 
         if (empty($results)) {
             $this->statusMessage = "Error: Could not fetch data for Page {$this->page}.";
+
             return;
         }
 
@@ -38,7 +41,7 @@ class SeriesImporter extends Component
             );
 
             // genre sync
-            if (!empty($data['genres'])) {
+            if (! empty($data['genres'])) {
                 $genreIds = [];
                 foreach ($data['genres'] as $genreName) {
                     $genre = Genre::firstOrCreate(['name' => $genreName]);
@@ -48,7 +51,7 @@ class SeriesImporter extends Component
             }
 
             // image handling
-            if (!$series->hasMedia('covers') && !empty($data['imageUrl'])) {
+            if (! $series->hasMedia('covers') && ! empty($data['imageUrl'])) {
                 try {
                     $series->addMediaFromUrl($data['imageUrl'])->toMediaCollection('covers');
                 } catch (\Exception $e) {

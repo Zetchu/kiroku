@@ -21,7 +21,7 @@ it('can import series using the service', function () {
                     'episodes' => 220,
                     'imageUrl' => 'http://example.com/img.jpg',
                     'genres' => ['Action', 'Shonen'],
-                ]
+                ],
             ]);
     });
 
@@ -39,6 +39,6 @@ it('can import series using the service', function () {
     ]);
 
     $this->assertDatabaseHas('genres', [
-        'name' => 'Action'
+        'name' => 'Action',
     ]);
 });

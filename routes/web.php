@@ -10,18 +10,17 @@ use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [WelcomeController::class, "index"]);
+Route::get('/', [WelcomeController::class, 'index']);
 
-Route::get('series', [SeriesController::class, "index"])->name('series.index');
+Route::get('series', [SeriesController::class, 'index'])->name('series.index');
 
-Route::get('series/{id}', [SeriesController::class, "show"])->name('series.show');
+Route::get('series/{id}', [SeriesController::class, 'show'])->name('series.show');
 
 Route::resource('genres', GenreController::class)->only(['index', 'show']);
 
 Route::post('series/{id}/comments', [CommentsController::class, 'store'])
     ->middleware('auth')
     ->name('comments.store');
-
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
 
@@ -47,7 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-list', [ReviewController::class, 'index'])->name('my-list');
     Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
-
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

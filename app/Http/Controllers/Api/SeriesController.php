@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SeriesIndexResource;
 use App\Http\Resources\SeriesShowResource;
 use App\Models\Series;
-use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
     public function index()
     {
-        
+
         $perPage = request()->get('per_page', 10);
 
         $series = Series::query()
@@ -28,7 +27,7 @@ class SeriesController extends Controller
             ->with('genres')
             ->find($id);
 
-        if (!$series) {
+        if (! $series) {
             return response()->json(['message' => 'Series not found'], 404);
         }
 

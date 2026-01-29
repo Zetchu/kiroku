@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Series;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\On;
-use App\Models\Series;
 
 class SeriesList extends Component
 {
@@ -40,11 +40,11 @@ class SeriesList extends Component
         $query = Series::with(['genres', 'media'])->latest();
 
         if ($this->search) {
-            $query->where('name', 'like', '%' . $this->search . '%');
+            $query->where('name', 'like', '%'.$this->search.'%');
         }
-        
+
         return view('livewire.series-list', [
-            'series' => $query->paginate(10)
+            'series' => $query->paginate(10),
         ]);
     }
 }

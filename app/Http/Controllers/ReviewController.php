@@ -20,18 +20,17 @@ class ReviewController extends Controller
         Review::updateOrCreate(
             [
                 'user_id' => Auth::id(),
-                'series_id' => $series->id
+                'series_id' => $series->id,
             ],
             [
                 'status' => $validated['status'],
-                'rating' => $request->rating, //nullable
+                'rating' => $request->rating, // nullable
                 'progress' => $request->progress ?? 0,
             ]
         );
 
         return back()->with('success', 'List updated successfully!');
     }
-
 
     public function index()
     {

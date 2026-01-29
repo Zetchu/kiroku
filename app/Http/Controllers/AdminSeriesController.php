@@ -11,9 +11,7 @@ class AdminSeriesController extends Controller
 {
     public function __construct(
         protected AnimeLibraryInterface $animeService
-    )
-    {
-    }
+    ) {}
 
     public function import(Request $request)
     {
@@ -48,7 +46,7 @@ class AdminSeriesController extends Controller
             $series->genres()->sync($genreIds);
 
             // image handling
-            if (!$series->hasMedia('covers')) {
+            if (! $series->hasMedia('covers')) {
                 try {
                     $series->addMediaFromUrl($data['imageUrl'])->toMediaCollection('covers');
                 } catch (\Exception $e) {
@@ -69,6 +67,7 @@ class AdminSeriesController extends Controller
     public function create()
     {
         $genres = Genre::orderBy('name')->get();
+
         return view('admin.series.create', compact('genres'));
     }
 
@@ -96,6 +95,7 @@ class AdminSeriesController extends Controller
             $series->genres()->attach($request->genres);
         }
         cache()->forget('trending_series');
+
         return redirect()->route('admin.series.index')->with('success', 'Series created successfully.');
     }
 
@@ -137,6 +137,7 @@ class AdminSeriesController extends Controller
     {
         $series->genres()->detach();
         $series->delete();
+
         return redirect()->route('admin.series.index')->with('success', 'Series deleted successfully.');
     }
 }

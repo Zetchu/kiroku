@@ -26,6 +26,7 @@ class AdminCommentController extends Controller
         }
 
         $comments = $query->paginate(20)->withQueryString();
+
         return view('admin.comments.index', compact('comments'));
     }
 
@@ -33,6 +34,7 @@ class AdminCommentController extends Controller
     public function destroy(Comments $comment)
     {
         $comment->delete();
+
         return redirect()->route('admin.comments.index')->with('success', 'Comment deleted successfully.');
     }
 }

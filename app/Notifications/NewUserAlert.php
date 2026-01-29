@@ -11,9 +11,7 @@ class NewUserAlert extends Notification
 {
     use Queueable;
 
-    public function __construct(public User $newUser)
-    {
-    }
+    public function __construct(public User $newUser) {}
 
     public function via(object $notifiable): array
     {
@@ -23,10 +21,10 @@ class NewUserAlert extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('New User Registered: ' . $this->newUser->name)
-            ->line("A new user just joined Kiroku!")
-            ->line("Name: " . $this->newUser->name)
-            ->line("Email: " . $this->newUser->email)
+            ->subject('New User Registered: '.$this->newUser->name)
+            ->line('A new user just joined Kiroku!')
+            ->line('Name: '.$this->newUser->name)
+            ->line('Email: '.$this->newUser->email)
             ->action('View Users', url('/admin/users'));
     }
 }

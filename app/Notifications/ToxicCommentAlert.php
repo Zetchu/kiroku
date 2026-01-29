@@ -11,9 +11,7 @@ class ToxicCommentAlert extends Notification
 {
     use Queueable;
 
-    public function __construct(public Comments $comment, public string $detectedWord)
-    {
-    }
+    public function __construct(public Comments $comment, public string $detectedWord) {}
 
     public function via(object $notifiable): array
     {

@@ -11,11 +11,10 @@ it('can fetch all series', function () {
         ->assertJsonCount(3, 'data');
 });
 
-
 it('can fetch a single series', function () {
     $series = Series::factory()->create(['name' => 'Naruto']);
 
-    $response = $this->getJson('/api/series/' . $series->id);
+    $response = $this->getJson('/api/series/'.$series->id);
 
     $response->assertStatus(200)
         ->assertJsonPath('data.title', 'Naruto');

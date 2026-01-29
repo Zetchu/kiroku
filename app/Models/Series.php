@@ -11,10 +11,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Series extends Model implements HasMedia
 {
+    use HasFactory;
+
+    use InteractsWithMedia;
     /** @use HasFactory<\Database\Factories\SeriesFactory> */
     use SoftDeletes;
-    use HasFactory;
-    use InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -48,7 +49,7 @@ class Series extends Model implements HasMedia
             return $mediaUrl;
         }
 
-        if (!empty($this->imageUrl)) {
+        if (! empty($this->imageUrl)) {
             return $this->imageUrl;
         }
 
@@ -69,5 +70,4 @@ class Series extends Model implements HasMedia
     /**
      * Custom Helper to get Image
      */
-
 }

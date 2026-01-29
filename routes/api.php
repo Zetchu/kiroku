@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SeriesController;
+use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/series', [SeriesController::class, 'index'])->name('api.series.index');

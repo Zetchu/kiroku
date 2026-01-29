@@ -14,7 +14,6 @@ class SeriesFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     public static $seriesData = [
         [
             'name' => 'Attack on Titan',
