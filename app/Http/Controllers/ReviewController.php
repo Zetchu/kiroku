@@ -35,22 +35,6 @@ class ReviewController extends Controller
 
     public function index()
     {
-        $userId = Auth::id();
-
-        $reviews = Review::with('series')
-            ->where('user_id', $userId)
-            ->get();
-
-        $stats = [
-            'total_series' => $reviews->count(),
-            'episodes_watched' => $reviews->filter(function ($review) {
-                return $review->series?->type === 'Anime';
-            })->sum('progress'),
-            'chapters_read' => $reviews->filter(function ($review) {
-                return $review->series?->type === 'Manga';
-            })->sum('progress'),
-        ];
-
-        return view('user.list', compact('reviews', 'stats'));
+        return view('user.list'); // Livewire handles the rest
     }
 }
