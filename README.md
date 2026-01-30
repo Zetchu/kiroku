@@ -1,180 +1,273 @@
 Kiroku - Anime & Manga Tracker
 ==============================
 
-**Kiroku** (Japanese for *record* or *log*) is a modern web application for tracking your anime watching and manga
-reading progress. Built with **Laravel 12**, it features a comprehensive master catalog, personal user lists, and a
-robust administration panel.
+Live Demo:[  https://kiroku-app.com](https://kiroku-app.com)
+
+Kiroku (Japanese for record or log) is a modern web application for tracking your anime watching and manga reading progress. Built with Laravel 12 and Livewire 4, it features a comprehensive master catalog, reactive user lists, and a robust administration panel with automated background processing.
 
 🚀 Features
 -----------
 
 ### 🌟 Public & User Features
 
-- **Trending Page:** Caching-enabled welcome page displaying top-rated series.
+-   Trending Page: Caching-enabled welcome page displaying top-rated series from the Jikan API.
 
-- **Master Catalog:** Browse and search the entire database of Anime and Manga.
+-   Master Catalog: Browse and search the entire database with instant, pagination-supported results (Powered by Livewire).
 
-- **Personal Tracking:** Users can maintain a "My List" with statuses (*Watching, Completed, Plan to Watch*), ratings (
-  1-10), and episode/chapter progress.
+-   Personal Tracking: Users can maintain a "My List" with:
 
-- **Instant Filtering:** Client-side filtering (Alpine.js) for personal lists to instantly toggle between Anime/Manga or
-  specific statuses.
+-   Status Tracking:  Watching, Completed, Plan to Watch
 
-- **Community:** Registered users can post comments and discuss series.
+-   Progress Bars: Visual tracking of episodes/chapters.
 
-- **Profile Management:** Update profile details, change passwords, or delete accounts.
+-   Scoring: 1-10 rating system.
+
+-   Reactive Filtering: The "My List" page uses Livewire to instantly filter by Type (Anime/Manga), Status, or Search terms without page reloads. Real-time statistics (Episodes Watched/Chapters Read) update automatically as you filter.
+
+-   Community Interaction:
+
+-   Post comments on series.
+
+-   Automated Moderation: Comments are analyzed in the background for toxicity; admins are alerted immediately if bad language is detected.
+
+-   Profile Management: Update profile details, change passwords, or securely delete accounts.
 
 ### 🛡️ Admin Features
 
-- **Dedicated Admin Panel:** Secured via Middleware (`is_admin` flag).
+-   Dedicated Admin Panel: Secured via Middleware (is_admin flag).
 
-- **Dashboard:** Overview statistics for Series, Users, Genres, and Comments.
+-   Dashboard: Real-time overview statistics for Series, Users, Genres, and Comments.
 
-- **Series CRUD:** Full management of series including **Image Uploads** (handled via Spatie Media Library) with
-  automatic thumbnail generation.
+-   Smart Importer (Jikan API):
 
-- **Genre Management:** Create, Edit, and Delete genres.
+-   Fetch & Preview Workflow: A multi-step Livewire modal allows admins to fetch data from Jikan, preview the results in a data table, and confirm specific items before importing them to the database.
 
-- **Comment Moderation:** Admins can view and delete any user comment.
+-   Idempotency: Handles duplicates automatically using updateOrCreate.
+
+-   Data Management:
+
+-   Export Data: Instantly export the entire series catalog to JSON for external use.
+
+-   Soft Deletes: Safely delete series or reviews without losing data permanently. Defensive coding prevents "Ghost Record" crashes in user lists.
+
+-   Image Handling: Automated download and optimization of cover images via Spatie Media Library.
+
+* * * * *
+
+📡 API Documentation
+--------------------
+
+Kiroku provides a public RESTful API for developers to access the series catalog externally.
+
+### Endpoints
+
+#### GET /api/series
+
+Fetches a paginated list of all series in the database.
+
+Parameters:
+
+-   page (optional): Page number (default: 1)
+
+-   per_page (optional): Number of items per page (default: 10, max: 100)
+
+Example Request:
+
+HTTP
+
+GET https://kiroku-app.com/api/series?page=1&per_page=25
+
+Response:
+
+JSON
+```json
+
+{
+
+  "data": [
+
+    {
+
+      "id": 1,
+
+      "name": "Naruto",
+
+      "type": "Anime",
+
+      "episodes": 220,
+
+      "image_url": "..."
+
+    }
+
+  ],
+
+  "links": { ... },
+
+  "meta": { ... }
+
+}
+```
+
+* * * * *
+
+🏗️ Infrastructure & DevOps
+---------------------------
+
+This project is deployed using a professional CI/CD and monitoring stack:
+
+-   Hosting:  DigitalOcean Droplet (Ubuntu/Nginx).
+
+-   Deployment: Automated via Laravel Forge (Push-to-Deploy).
+
+-   Backups:
+
+-   Automated daily backups configured via the Laravel Forge Scheduler.
+
+-   Storage: Full database and filesystem snapshots are safely stored in DigitalOcean Spaces (S3-compatible storage).
+
+-   Disaster Recovery: Capable of full system restoration from external archives.
+
+-   Monitoring: Real-time error tracking and health checks provided by Flare.
 
 * * * * *
 
 🛠️ Tech Stack
 --------------
 
-- **Backend:** PHP 8.3+, Laravel 12
+-   Framework: Laravel 12 (PHP 8.3)
 
-- **Frontend:** Blade Templates, Tailwind CSS v4 (via CDN), Alpine.js
+-   Frontend: Livewire 4, Alpine.js, Tailwind CSS v4
 
-- **Database:** SQLite (Default) / MySQL
+-   Database: MySQL 8
 
-- **Media:** Spatie Laravel Media Library
+-   Testing: Pest PHP (Feature & Unit Testing with Mocking)
 
-- **Authentication:** Laravel Breeze
+-   Key Packages:
 
-* * * * *
+-   spatie/laravel-medialibrary: Image manipulation.
 
-⚙️ Installation
----------------
+-   spatie/laravel-backup: Database & file backups.
 
-Follow these steps to set up the project locally.
+-   spatie/laravel-flare: Error reporting.
 
-### 1\. Clone the Repository
-
-Bash
-
-```
-git clone https://github.com/zetchu/kiroku.git
-cd kiroku
-
-```
-
-### 2\. Install Dependencies
-
-Bash
-
-```
-composer install
-npm install
-
-```
-
-### 3\. Environment Setup
-
-Copy the example environment file and generate your application key.
-
-Bash
-
-```
-cp .env.example .env
-php artisan key:generate
-
-```
-
-### 4\. Database Setup (SQLite)
-
-Create the SQLite database file:
-
-Bash
-
-```
-touch database/database.sqlite
-
-```
-
-*Note: If you prefer MySQL, update `DB_CONNECTION=mysql` in your `.env` file.*
-
-### 5\. Run Migrations & Seed Data
-
-This will create all tables and populate the database with the default **Admin Account** and sample data.
-
-Bash
-
-```
-php artisan migrate:fresh --seed
-
-```
-
-### 6\. Link Storage
-
-Create the symbolic link to allow public access to uploaded images.
-
-Bash
-
-```
-php artisan storage:link
-
-```
-
-### 7\. Run the Application
-
-Bash
-
-```
-npm run build
-php artisan serve
-
-```
-
-The app will be available at `http://localhost:8000`.
-
-* * * * *
-
-🔑 Default Credentials
-----------------------
-
-The database seeder creates a default **Admin** account for testing:
-
-- **Email:** `admin@test.com`
-
-- **Password:** `admin100`
-
-*You can also register a new account to test the standard user features.*
+-   guzzlehttp/guzzle: API Requests.
 
 * * * * *
 
 📂 Key Functionalities & Logic
 ------------------------------
 
-### 1\. Image Handling (Polymorphic)
+### 1\. External API Integration (Service Pattern)
 
-Images are not stored as simple text strings. Kiroku uses **Spatie Media Library** to handle file uploads.
+The application consumes the Jikan API (MyAnimeList) using a dedicated JikanService.
 
-- **Uploads:** Admins upload cover images via the Admin Panel.
+-   Interface: Implements AnimeLibraryInterface to allow for easy swapping of data providers.
 
-- **Conversions:** The system automatically crops images to `300x450` (List View) and `600x900` (Detail View).
+-   Caching: API responses are cached for 1 hour to prevent rate-limiting and improve speed.
 
-- **Fallback:** The `getImageUrl()` helper method ensures a valid image or placeholder is always displayed.
+-   Resilience: Try/Catch blocks ensure the app remains stable even if the external API is down.
 
-### 2\. Search & Filtering
+### 2\. Livewire Search & Filtering
 
-- **Server-Side Search:** Used in the Admin Panel and Catalog to handle large datasets efficiently with Pagination.
+-   Refactored UX: Previously using standard controllers, the Master Catalog and User Lists have been refactored to Livewire Components.
 
-- **Client-Side Filtering:** Used in "My List" (Alpine.js) to provide an instant, app-like experience for sorting
-  personal entries.
+-   Benefits: This provides an "App-like" feel with instant search results, dynamic pagination resets, and real-time statistic calculations without full page reloads.
 
-### 3\. Authorization
+### 3\. Asynchronous Jobs & Queues
 
-- **Policies:** Users can only delete their *own* comments. Admins can delete *any* comment.
+To ensure high performance, heavy tasks are offloaded to background queues:
 
-- **Middleware:** Admin routes are protected by a custom `IsAdmin` middleware that checks the database flag.
+-   New User Alerts: Admins receive an email notification when a new user registers.
+
+-   Content Moderation:  AnalyzeCommentForToxicityJob runs in the background to scan comments for banned words, keeping the UI snappy.
+
+### 4\. Image Handling
+
+Images are not stored as simple URLs. Kiroku downloads the asset to local storage/S3 and registers media conversions:
+
+-   Preview: Cropped to 300x450 (List View).
+
+-   Banner: Cropped to 600x900 (Detail View).
+
+* * * * *
+
+⚙️ Installation
+---------------
+
+### 1\. Clone the repository
+
+```bash
+
+git clone https://github.com/yourusername/kiroku.git
+
+cd kiroku
+
+```
+
+### 2\. Install Dependencies
+
+```bash
+
+composer install
+
+npm install
+
+```
+
+### 3\. Environment Setup
+
+```bash
+
+cp .env.example .env
+
+php artisan key:generate
+
+```
+
+### 4\. Database Setup
+
+Configure your database credentials in .env, then run migrations:
+
+```bash
+
+php artisan migrate --seed
+
+```
+
+The seeder will create a default admin account and sample data.
+
+### 5\. Storage Linking
+
+```bash
+
+php artisan storage:link
+
+```
+
+### 6\. Run the Application
+
+```bash
+
+npm run build
+
+php artisan serve
+
+```
+
+```bash
+
+# In a separate terminal, run the queue worker
+
+php artisan queue:work
+
+```
+
+* * * * *
+
+🔑 Default Credentials
+----------------------
+
+-   Admin Email:  kraljicdavid4@gmail.com
+
+-   Password:  admin100
