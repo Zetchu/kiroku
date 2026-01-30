@@ -19,8 +19,10 @@
 
         {{-- status header --}}
         <div class="grid grid-cols-3 gap-4 text-center mb-12">
+            {{-- (Header stats section remains unchanged) --}}
             <div class="bg-[#1a1a1a] p-6 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 shadow-lg">
                 <div class="p-3 bg-purple-500/10 rounded-full text-purple-400 mb-1">
+                    {{-- Icon --}}
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
@@ -100,21 +102,30 @@
                 <tbody class="text-white text-sm">
                 @forelse($reviews as $review)
                     <tr x-show="filterItem($el)"
-                        data-type="{{ $review->series->type }}"
+                        data-type="{{ $review->series?->type ?? 'Deleted' }}"
                         data-status="{{ $review->status }}"
-                        data-title="{{ $review->series->name }}"
+                        data-title="{{ $review->series?->name ?? 'Deleted Series' }}"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
                         class="border-b border-white/5 hover:bg-white/5 transition group">
 
                         <td class="py-4 pl-4">
-                            <a href="{{ route('series.show', $review->series->id) }}"
-                               class="flex items-center gap-4 group-hover:text-accent transition">
-                                <img src="{{ $review->series->getImageUrl('preview') }}" alt=""
-                                     class="w-12 h-16 object-cover rounded-md shadow-sm">
-                                <span class="font-bold text-base">{{ $review->series?->name ?? 'Deleted Series' }}</span>
-                            </a>
+                            @if($review->series)
+                                <a href="{{ route('series.show', $review->series->id) }}"
+                                   class="flex items-center gap-4 group-hover:text-accent transition">
+                                    <img src="{{ $review->series->getImageUrl('preview') }}" alt=""
+                                         class="w-12 h-16 object-cover rounded-md shadow-sm">
+                                    <span class="font-bold text-base">{{ $review->series->name }}</span>
+                                </a>
+                            @else
+                                <div class="flex items-center gap-4 opacity-50 cursor-not-allowed">
+                                    <div class="w-12 h-16 bg-gray-800 rounded-md flex items-center justify-center text-xs text-gray-500">
+                                        N/A
+                                    </div>
+                                    <span class="font-bold text-base text-gray-500 italic">Series Deleted</span>
+                                </div>
+                            @endif
                         </td>
 
                         <td class="py-4 text-center font-bold text-lg">
@@ -123,19 +134,26 @@
 
                         <td class="py-4 px-4">
                             <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
-                                <span>{{ $review->progress }} / {{ $review->series->episodes ?? '?' }}</span>
-                                <span>{{ $review->series->episodes > 0 ? round(($review->progress / $review->series->episodes) * 100) : 0 }}%</span>
+                                {{-- FIX 3: Safe navigation for episodes --}}
+                                <span>{{ $review->progress }} / {{ $review->series?->episodes ?? '?' }}</span>
+                                <span>
+                                    @if($review->series && $review->series->episodes > 0)
+                                        {{ round(($review->progress / $review->series->episodes) * 100) }}%
+                                    @else
+                                        0%
+                                    @endif
+                                </span>
                             </div>
                             <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
                                 <div class="bg-accent h-2 rounded-full"
-                                     style="width: {{ $review->series->episodes > 0 ? min(($review->progress / $review->series->episodes) * 100, 100) : 0 }}%">
+                                     style="width: {{ ($review->series && $review->series->episodes > 0) ? min(($review->progress / $review->series->episodes) * 100, 100) : 0 }}%">
                                 </div>
                             </div>
                         </td>
 
                         <td class="py-4 pr-4 text-right">
                                 <span class="px-3 py-1 rounded-full text-xs font-bold border border-white/10 bg-white/5 text-gray-300">
-                                    {{ $review->series->type }}
+                                    {{ $review->series?->type ?? 'Deleted' }}
                                 </span>
                         </td>
                     </tr>
