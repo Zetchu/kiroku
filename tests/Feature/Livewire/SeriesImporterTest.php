@@ -15,7 +15,7 @@ it('can import series using the service', function () {
                 [
                     'name' => 'Naruto',
                     'synopsis' => 'Ninjas.',
-                    'type' => 'Anime', // <--- CHANGED FROM 'TV' TO 'Anime'
+                    'type' => 'Anime',
                     'status' => 'Finished',
                     'studio' => 'Pierrot',
                     'episodes' => 220,
@@ -27,15 +27,27 @@ it('can import series using the service', function () {
 
     // 2. Act
     Livewire::test(SeriesImporter::class)
+        ->call('openModal') // <--- FIX: Open the modal first!
+        ->assertSet('showModal', true) // Verify it opened
         ->set('type', 'anime')
         ->set('page', 1)
-        ->call('import');
 
-    // 3. Assert
+        // Step A: Trigger the Fetch
+        ->call('fetch')
+        ->assertSet('showModal', true) // It should stay open
+        ->assertSet('step', 2)         // It should move to Step 2 (Preview)
+        ->assertCount('fetchedData', 1)
+
+        // Step B: Trigger the Import
+        ->call('importToDatabase')
+        ->assertDispatched('series-imported')
+        ->assertSet('showModal', false); // It should close after importing
+
+    // 3. Assert Database
     $this->assertDatabaseHas('series', [
         'name' => 'Naruto',
         'studio' => 'Pierrot',
-        'type' => 'Anime', // <--- Ensure this matches the change above
+        'type' => 'Anime',
     ]);
 
     $this->assertDatabaseHas('genres', [

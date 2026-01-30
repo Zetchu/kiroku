@@ -11,24 +11,50 @@ class SeriesImporter extends Component
 {
     public $type = 'anime';
     public $page = 1;
-    public $statusMessage = '';
 
-    public function import(AnimeLibraryInterface $animeService)
+    public $statusMessage = '';
+    public $fetchedData = [];
+    public $showModal = false;
+    public $step = 1;
+
+    public function openModal()
     {
-        // fetch data
+        $this->reset(['fetchedData', 'statusMessage', 'page', 'type']);
+        $this->step = 1;
+        $this->showModal = true;
+    }
+
+    public function fetch(AnimeLibraryInterface $animeService)
+    {
+        $this->reset('statusMessage', 'fetchedData');
+
         $results = $animeService->fetchPopular($this->type, $this->page);
 
         if (empty($results)) {
-            $this->statusMessage = "Error: Could not fetch data for Page {$this->page}.";
+            $this->statusMessage = "Error: No data found for Page {$this->page}.";
             return;
         }
 
+        $this->fetchedData = $results;
+        $this->step = 2;
+    }
+
+    public function backToInput()
+    {
+        $this->step = 1;
+        $this->fetchedData = [];
+    }
+
+    public function importToDatabase()
+    {
+        if (empty($this->fetchedData)) return;
+
         $count = 0;
-        foreach ($results as $data) {
+        foreach ($this->fetchedData as $data) {
             $series = Series::updateOrCreate(
                 ['name' => $data['name']],
                 [
-                    'synopsis' => $data['synopsis'] ?? 'No synopsis available', // Added fallback
+                    'synopsis' => $data['synopsis'] ?? 'No synopsis available',
                     'type' => $data['type'],
                     'status' => $data['status'],
                     'studio' => $data['studio'],
@@ -37,7 +63,6 @@ class SeriesImporter extends Component
                 ]
             );
 
-            // genre sync
             if (!empty($data['genres'])) {
                 $genreIds = [];
                 foreach ($data['genres'] as $genreName) {
@@ -47,18 +72,18 @@ class SeriesImporter extends Component
                 $series->genres()->sync($genreIds);
             }
 
-            // image handling
             if (!$series->hasMedia('covers') && !empty($data['imageUrl'])) {
                 try {
                     $series->addMediaFromUrl($data['imageUrl'])->toMediaCollection('covers');
                 } catch (\Exception $e) {
-                    // Fail silently or log error
                 }
             }
             $count++;
         }
 
-        $this->statusMessage = "Success! Imported {$count} {$this->type} series.";
+        $this->showModal = false;
+        $this->fetchedData = [];
+        $this->statusMessage = "Successfully imported {$count} items!";
         $this->dispatch('series-imported');
     }
 
