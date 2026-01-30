@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+// Added missing import for type hint
 
 class Series extends Model implements HasMedia
 {
     use HasFactory;
-
     use InteractsWithMedia;
+
     /** @use HasFactory<\Database\Factories\SeriesFactory> */
     use SoftDeletes;
 
@@ -49,14 +52,15 @@ class Series extends Model implements HasMedia
             return $mediaUrl;
         }
 
-        if (! empty($this->imageUrl)) {
+        // Fixed unary operator space here
+        if (!empty($this->imageUrl)) {
             return $this->imageUrl;
         }
 
         return 'https://placehold.co/300x450?text=No+Image';
     }
 
-    public function registerMediaConversions(Media|\Spatie\MediaLibrary\MediaCollections\Models\Media|null $media = null): void
+    public function registerMediaConversions(Media|null $media = null): void
     {
         $this->addMediaConversion('preview')
             ->fit(Fit::Crop, 300, 450)
@@ -66,8 +70,4 @@ class Series extends Model implements HasMedia
             ->fit(Fit::Crop, 600, 900)
             ->nonQueued();
     }
-
-    /**
-     * Custom Helper to get Image
-     */
 }
