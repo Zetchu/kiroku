@@ -113,7 +113,7 @@
                                class="flex items-center gap-4 group-hover:text-accent transition">
                                 <img src="{{ $review->series->getImageUrl('preview') }}" alt=""
                                      class="w-12 h-16 object-cover rounded-md shadow-sm">
-                                <span class="font-bold text-base">{{ $review->series->name }}</span>
+                                <span class="font-bold text-base">{{ $review->series?->name ?? 'Deleted Series' }}</span>
                             </a>
                         </td>
 
