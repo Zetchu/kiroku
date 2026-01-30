@@ -44,10 +44,10 @@ class ReviewController extends Controller
         $stats = [
             'total_series' => $reviews->count(),
             'episodes_watched' => $reviews->filter(function ($review) {
-                return $review->series->type === 'Anime';
+                return $review->series?->type === 'Anime';
             })->sum('progress'),
             'chapters_read' => $reviews->filter(function ($review) {
-                return $review->series->type === 'Manga';
+                return $review->series?->type === 'Manga';
             })->sum('progress'),
         ];
 
